@@ -7,8 +7,8 @@ from typing import Optional, Callable
 from fastapi import FastAPI, Request, Response
 from starlette.middleware.base import BaseHTTPMiddleware
 
-from middleware.utils.dependency_injection import AppInjector
-from middleware.utils.authorization import Context
+from ds_fastapi_middleware.utils.dependency_injection import AppInjector
+from ds_fastapi_middleware.utils.authorization import Context
 
 
 class ContextMiddleware(BaseHTTPMiddleware):

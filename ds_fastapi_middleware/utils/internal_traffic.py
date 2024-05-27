@@ -3,7 +3,7 @@
 import struct
 import socket
 
-from middleware.config import Config
+from ds_fastapi_middleware.config import Config
 
 
 def is_private_ip(ip: str):

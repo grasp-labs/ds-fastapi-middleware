@@ -1,5 +1,8 @@
 # ds FastAPI Middleware
 
+![Python Versions](https://img.shields.io/badge/python-3.8%20|%203.9%20|%203.10%20|%203.11-blue)
+
+
 A custom middleware for FastAPI applications project & part of the
 ds project.
 - audit middleware
@@ -22,7 +25,7 @@ ds project.
 You can install the FastAPI Middleware package using pip:
 
 ```bash
-pip install fastapi-middleware
+pip install ds_fastapi_middleware
 
 ## Usage
 To use the middleware in your FastAPI application, add it to your app as
@@ -30,11 +33,11 @@ follows:
 
 ```python
 from fastapi import FastAPI
-from fastapi_middleware import CustomMiddleware
+from ds_fastapi_middleware import middleware
 
 app = FastAPI()
 
-app.add_middleware(CustomMiddleware)
+app.add_middleware(middleware.ContextMiddleware)
 
 @app.get("/hello")
 async def hello():
@@ -49,8 +52,8 @@ steps below to set up your development environment.
 Clone the repository:
 
 ```bash
-git clone https://github.com/grasp-labs/fastapi-middleware.git
-cd fastapi-middleware
+git clone https://github.com/grasp-labs/ds-fastapi-middleware.git
+cd ds-fastapi-middleware
 ```
 
 Create a virtual environment and install dependencies:

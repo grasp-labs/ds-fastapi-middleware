@@ -6,7 +6,7 @@ import boto3
 from botocore.client import BaseClient
 from botocore.config import Config
 
-from middleware.config import Config as MiddlewareConfig
+from ds_fastapi_middleware.config import Config as MiddlewareConfig
 
 
 class BotoClientFactory:

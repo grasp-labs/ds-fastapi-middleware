@@ -12,8 +12,8 @@ import typing
 from fastapi import FastAPI, Request
 from starlette.middleware.base import BaseHTTPMiddleware
 
-from middleware import models
-from middleware.utils.usage import write_usage
+from ds_fastapi_middleware import models
+from ds_fastapi_middleware.utils.usage import write_usage
 
 
 class UsageMiddleware(BaseHTTPMiddleware):

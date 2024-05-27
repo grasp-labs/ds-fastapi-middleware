@@ -35,8 +35,8 @@ from fastapi import FastAPI
 import requests
 from starlette.middleware.base import BaseHTTPMiddleware
 
-from middleware.models import AuditPayload
-from middleware.utils import internal_traffic
+from ds_fastapi_middleware.models import AuditPayload
+from ds_fastapi_middleware.utils import internal_traffic
 
 
 class AuditMiddleware(BaseHTTPMiddleware):

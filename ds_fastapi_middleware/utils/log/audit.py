@@ -7,8 +7,8 @@ from typing import Dict
 import boto3
 from botocore.exceptions import ClientError
 
-from middleware.errors import Errors
-from middleware.config import Config
+from ds_fastapi_middleware.errors import Errors
+from ds_fastapi_middleware.config import Config
 
 
 class DynamoDbHandler(logging.StreamHandler):

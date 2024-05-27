@@ -3,7 +3,7 @@
 import sys
 import logging
 
-from middleware.config import Config
+from ds_fastapi_middleware.config import Config
 
 
 class ContextFilter(logging.Filter):
