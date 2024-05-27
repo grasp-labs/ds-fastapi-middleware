@@ -22,7 +22,14 @@ jobs:
         python -m pip install pipenv
     - name: Install dependencies
       run: |
-        pipenv install --dev
+        pipenv install fastapi
+        pipenv install boto3
+        pipenv install requests
+        pipenv install coverage
+        pipenv install pytest
+        pipenv install pytest-asyncio
+        pipenv install moto
+        pipenv install httpx
     - name: Run tests
       run: |
         pipenv run coverage run --source=. -m pytest
