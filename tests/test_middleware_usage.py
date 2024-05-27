@@ -40,7 +40,7 @@ dependencies = [Depends(mock_authorize, use_cache=False)]
 
 
 @app.get("/hello")
-async def hello(request: Request, _ = Depends(mock_authorize)):
+async def hello(request: Request, _=Depends(mock_authorize)):
     return {"message": "Hello World", "context": request.state.context}
 
 

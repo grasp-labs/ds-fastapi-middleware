@@ -1,6 +1,7 @@
 """
 Contextual information for request processing.
 """
+
 import contextvars
 import json
 import uuid
@@ -117,8 +118,16 @@ class Context:
 
     def __dict__(self):
         return {
-            "request_id": str(self._request_id) if isinstance(self._request_id, uuid.UUID) else self._request_id,
-            "tenant_id": str(self._tenant_id) if isinstance(self._tenant_id, uuid.UUID) else self._tenant_id,
+            "request_id": (
+                str(self._request_id)
+                if isinstance(self._request_id, uuid.UUID)
+                else self._request_id
+            ),
+            "tenant_id": (
+                str(self._tenant_id)
+                if isinstance(self._tenant_id, uuid.UUID)
+                else self._tenant_id
+            ),
             "user_id": self._user,
         }
 

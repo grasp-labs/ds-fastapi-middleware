@@ -42,7 +42,7 @@ async def hello():
 ```
 
 ## Development
-If you want to contribute to the development of this package, follow the 
+If you want to contribute to the development of this package, follow the
 steps below to set up your development environment.
 
 ### Installing

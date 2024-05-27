@@ -1,4 +1,5 @@
 """Uniform Logger for ds"""
+
 import sys
 import logging
 
@@ -49,6 +50,7 @@ class Logger:
     logger.shutdown()
 
     """
+
     _data = Config["logging"]
     LOGGER = logging.getLogger(_data["name"])
     FORMATTER = logging.Formatter(

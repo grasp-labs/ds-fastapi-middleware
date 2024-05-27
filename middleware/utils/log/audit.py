@@ -74,9 +74,7 @@ class DynamoDbHandler(logging.StreamHandler):
         return item.get("id", str(uuid.uuid4()))
 
 
-def init(
-    table: str, log_level: str = logging.INFO
-) -> logging.Logger:
+def init(table: str, log_level: str = logging.INFO) -> logging.Logger:
     """
     Initialize logger with DynamoDB handler.
 

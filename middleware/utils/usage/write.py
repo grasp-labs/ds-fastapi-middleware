@@ -1,4 +1,5 @@
 """Module for service middleware"""
+
 from middleware.config import Config
 from middleware import models
 

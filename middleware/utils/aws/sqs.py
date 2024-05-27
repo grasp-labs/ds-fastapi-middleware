@@ -44,7 +44,8 @@ def dict_to_message_attributes(data: typing.Dict) -> typing.Dict:
         else:
             # Handle unsupported data types
             raise Errors.ValueErrorException(
-                f"Unsupported data type for attribute value: {type(value)}")
+                f"Unsupported data type for attribute value: {type(value)}"
+            )
 
         message_attributes[key] = entry
 
@@ -91,7 +92,9 @@ def publish_message(
     """
 
     if not queue_url and not queue_name:
-        raise Errors.ValueErrorException("At least provide one argument: queue_url or queue_name.")
+        raise Errors.ValueErrorException(
+            "At least provide one argument: queue_url or queue_name."
+        )
 
     if not client:
         client = BotoClientFactory.get_boto_client(client_type="sqs")

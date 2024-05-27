@@ -1,6 +1,7 @@
 """
 Model for Audit record.
 """
+
 from dataclasses import dataclass
 import datetime
 

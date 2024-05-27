@@ -1,4 +1,5 @@
 """Utils for ip handling"""
+
 import struct
 import socket
 

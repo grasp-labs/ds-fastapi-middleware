@@ -1,4 +1,5 @@
 """Module for injector pattern."""
+
 from abc import ABC, abstractmethod
 import asyncio
 from typing import Type, Any, Callable

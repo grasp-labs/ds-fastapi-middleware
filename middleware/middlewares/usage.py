@@ -4,6 +4,7 @@ Usage middleware for tracing service usage in fastApi applications.
 Usage metrics is collected and written to storage system for
 the purpose of billing customer.
 """
+
 import datetime
 from uuid import UUID
 import typing

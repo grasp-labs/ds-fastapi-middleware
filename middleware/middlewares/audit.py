@@ -26,6 +26,7 @@ Example:
 * Dynamodb table will be created if not existing.
 * Actions from unauthorized user and internal ips are ignored.
 """
+
 from dataclasses import asdict
 import datetime
 from typing import Union
@@ -80,7 +81,7 @@ class AuditMiddleware(BaseHTTPMiddleware):
                 status_code=response.status_code,
                 tenant_id=ctx.tenant_id,
                 user_id=ctx.user,
-                created_at= datetime.datetime.fromtimestamp(start_time).isoformat(),
+                created_at=datetime.datetime.fromtimestamp(start_time).isoformat(),
                 process_time=str(process_time),
             )
             self._logger.info(asdict(audit_item))

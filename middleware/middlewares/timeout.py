@@ -34,7 +34,7 @@ class TimeoutMiddleware(BaseHTTPMiddleware):
                 timeout=self._timeout,
             )
             duration = time.time() - start_time
-            response.headers['X-Response-Time'] = str(duration)
+            response.headers["X-Response-Time"] = str(duration)
             return response
 
         except asyncio.TimeoutError:

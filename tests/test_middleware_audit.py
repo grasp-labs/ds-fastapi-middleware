@@ -14,22 +14,9 @@ def test_init():
     table_name = "unittest-audit"
     dynamodb.create_table(
         TableName=table_name,
-        KeySchema=[
-            {
-                "AttributeName": "id",
-                "KeyType": "HASH"  # Partition key
-            }
-        ],
-        AttributeDefinitions=[
-            {
-                "AttributeName": "id",
-                "AttributeType": "S"  # String
-            }
-        ],
-        ProvisionedThroughput={
-            "ReadCapacityUnits": 5,
-            "WriteCapacityUnits": 5
-        }
+        KeySchema=[{"AttributeName": "id", "KeyType": "HASH"}],  # Partition key
+        AttributeDefinitions=[{"AttributeName": "id", "AttributeType": "S"}],  # String
+        ProvisionedThroughput={"ReadCapacityUnits": 5, "WriteCapacityUnits": 5},
     )
     # Initialize DynamoDB handler
     logger = init("unittest-audit")

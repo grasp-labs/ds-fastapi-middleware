@@ -1,6 +1,7 @@
 """
 Model for Usage record.
 """
+
 from dataclasses import dataclass
 import datetime
 import uuid

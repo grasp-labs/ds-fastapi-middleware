@@ -1,6 +1,7 @@
 """
 Web application exceptions.
 """
+
 from http import HTTPStatus
 from fastapi import HTTPException
 import typing
@@ -47,7 +48,7 @@ class WebAppException(HTTPException):
             status=HTTPStatus.FORBIDDEN,
             reason="Forbidden.",
             message=message,
-            header=header
+            header=header,
         )
 
     @staticmethod
@@ -95,7 +96,7 @@ class WebAppException(HTTPException):
             status=HTTPStatus.BAD_REQUEST,
             reason="Bad request.",
             message=message,
-            header=header
+            header=header,
         )
 
     @staticmethod

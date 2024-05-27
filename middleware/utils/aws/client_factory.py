@@ -1,6 +1,7 @@
 """
 Factory to create boto3 client.
 """
+
 import boto3
 from botocore.client import BaseClient
 from botocore.config import Config

@@ -1,6 +1,7 @@
 """
 FastAPI middleware to manage the context of the request.
 """
+
 import uuid
 from typing import Optional, Callable
 from fastapi import FastAPI, Request, Response
