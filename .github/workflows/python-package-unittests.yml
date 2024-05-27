@@ -17,20 +17,18 @@ jobs:
       with:
         python-version: "3.8.0 - 3.11.0"
     - run: echo '${{ steps.cp310.outputs.python-version }}'
-    - name: Install pipenv
-      run: |
-        python -m pip install pipenv
+
     - name: Install dependencies
       run: |
-        pipenv install fastapi
-        pipenv install boto3
-        pipenv install requests
-        pipenv install coverage
-        pipenv install pytest
-        pipenv install pytest-asyncio
-        pipenv install moto
-        pipenv install httpx
+        pip install fastapi
+        pip install boto3
+        pip install requests
+        pip install coverage
+        pip install pytest
+        pip install pytest-asyncio
+        pip install moto
+        pip install httpx
     - name: Run tests
       run: |
-        pipenv run coverage run --source=. -m pytest
-        pipenv run coverage report -m --omit="*/tests/*"
+        coverage run --source=. -m pytest
+        coverage report -m --omit="*/tests/*"

@@ -48,7 +48,6 @@ class Logger:
 
     # shutdown
     logger.shutdown()
-
     """
 
     _data = Config["logging"]
