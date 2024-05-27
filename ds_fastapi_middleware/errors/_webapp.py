@@ -1,6 +1,7 @@
 """
 Web application exceptions.
 """
+
 from http import HTTPStatus
 from fastapi import HTTPException
 import typing
