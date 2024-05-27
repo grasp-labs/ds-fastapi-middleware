@@ -1,0 +1,20 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+coverage = "*"
+pytest = "*"
+pytest-asyncio = "*"
+moto = "*"
+httpx = "*"
+
+[packages]
+fastapi = "*"
+boto3 = "*"
+requests = "*"
+pyjwt = "*"
+
+[requires]
+python_version = "3.11"

@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ds_fastapi_middleware"
+version = "2024.1.0"
+description = "A FastAPI middleware project for GraspDP(w)"
+dependencies = [
+    "boto3",
+    "fastapi",
+    "requests",
+]
+requires-python = ">=3.8"
+license = {file = "LICENSE"}
+keywords = ["grasp-labs", "python", "fastApi", "middleware", "aws"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python"
+]
+authors = [
+    {name = "yuan1989", email = "yuan@grasplabs.no"},
+    {name = "skerve", email = "arve.skjervheim@gmail.com"},
+]
+maintainers = [
+    {name = "skerve", email = "arve.skjervheim@gmail.com"},
+]
+[project.urls]
+Homepage = "https://github.com/grasp-labs/ds-fastapi-middleware"
+Documentation = "https://github.com/grasp-labs/ds-fastapi-middleware"
+Repository = "https://github.com/grasp-labs/ds-fastapi-middleware"
+Issues = "https://github.com/grasp-labs/ds-fastapi-middleware/issues"
+Changelog = "https://github.com/grasp-labs/ds-fastapi-middleware/blob/main/CHANGELOG.md"
