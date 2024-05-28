@@ -36,3 +36,4 @@ Changelog = "https://github.com/grasp-labs/ds-fastapi-middleware/blob/main/CHANG
 [tool.sphinx-autobuild]
 source-dir = "docs"
 build-dir = "_build"
+documentation-url = "https://github.com/grasp-labs/ds-fastapi-middleware"
