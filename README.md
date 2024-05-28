@@ -1,7 +1,9 @@
 # ds FastAPI Middleware
 
 ![Python Versions](https://img.shields.io/badge/python-3.8%20|%203.9%20|%203.10%20|%203.11-blue)
-
+[![PyPI version](https://badge.fury.io/py/ds-fastapi-middleware.svg)](https://badge.fury.io/py/ds-fastapi-middleware)
+[![Build Status](https://github.com/grasp-labs/ds-fastapi-middleware/actions/workflows/python-package-unittests.yml/badge.svg)](https://github.com/grasp-labs/ds-fastapi-middleware/actions/workflows/python-package-unittests.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A custom middleware for FastAPI applications project & part of the
 ds project.
@@ -68,6 +70,13 @@ pipenv install --dev
 pipenv run pytest
 ```
 
-License
+## License
 This project is licensed under the MIT License. See the LICENSE file for more
 details.
+
+## Authors
+- [Skerve](https://github.com/Skerve)
+- [Yuan1979](https://github.com/yuan1979)
+
+## Documentation
+Full documentation is available at [Documentation]
