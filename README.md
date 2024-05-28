@@ -91,9 +91,9 @@ pipenv install --dev
 To build the documentation, run:
 
 ```bash
-pipenv run sphinx-apidoc -o source ds_fastapi_middleware 
+pipenv run sphinx-apidoc -o source ds_fastapi_middleware
 ```
-ApiDoc will generate the rst files in the source directory. 
+ApiDoc will generate the rst files in the source directory.
 
 To build the html, run:
 
