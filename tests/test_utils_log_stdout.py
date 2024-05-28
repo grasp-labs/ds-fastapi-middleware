@@ -3,7 +3,7 @@ import io
 
 import pytest
 
-from middleware.utils.log.stdout import Logger
+from ds_fastapi_middleware.utils.log.stdout import Logger
 
 
 def log_messages(logger):

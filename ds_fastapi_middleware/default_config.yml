@@ -1,0 +1,19 @@
+app_name: "default"
+internal_ips:
+  - "127.0.0.1"
+aws:
+  region: "eu-north-1"
+  dynamodb:
+    auto-create: false
+    name: "default"
+    read-capacity: 10
+    write-capacity: 10
+  sqs:
+    name: "default"
+  s3:
+    bucket-name: "default"
+logging:
+  name: "default"
+  level: "INFO"
+  fmt: "[%(asctime)s][%(levelname)s]%(prefix)s[%(module)s]: %(message)s"
+  datefmt: "%Y-%m-%d %H:%M:%S"

@@ -1,0 +1,39 @@
+name: Python package
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10", "3.11"]
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      id: cp310
+      with:
+        python-version: "3.8.0 - 3.11.0"
+    - run: echo '${{ steps.cp310.outputs.python-version }}'
+
+    # Set AWS region environment variable
+    # as a simple way to manage moto
+    - name: Set AWS region
+      run: echo "export AWS_DEFAULT_REGION=eu-north-1" >> $GITHUB_ENV
+
+    - name: Install dependencies
+      run: |
+        pip install fastapi
+        pip install boto3
+        pip install requests
+        pip install coverage
+        pip install pytest
+        pip install pytest-asyncio
+        pip install moto
+        pip install httpx
+    - name: Run tests
+      run: |
+        coverage run --source=. -m pytest
+        coverage report -m --omit="*/tests/*"

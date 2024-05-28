@@ -1,14 +1,18 @@
+import os
+
 import boto3
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from moto import mock_aws
 
-from middleware import AuditMiddleware
-from middleware.utils.log.audit import init
+from ds_fastapi_middleware import AuditMiddleware
+from ds_fastapi_middleware.utils.log.audit import init
 
 
 @mock_aws()
-def test_init():
+def test_init(monkeypatch):
+    monkeypatch.setenv("AWS_DEFAULT_REGION", "eu-north-1")
+    assert os.getenv("AWS_DEFAULT_REGION") == "eu-north-1"
     print("Creating table...")
     dynamodb = boto3.resource("dynamodb", region_name="eu-north-1")
     table_name = "unittest-audit"

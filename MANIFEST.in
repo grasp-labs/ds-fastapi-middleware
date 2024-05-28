@@ -1,0 +1,14 @@
+# Include default configuration file
+include ds_fastapi_middleware/default_config.yml
+
+# Exclude __pycache__ directories and .pyc files
+global-exclude __pycache__
+global-exclude *.py[cod]
+
+# Exclude any other unwanted files, such as editor backups, logs, etc.
+global-exclude *.log
+global-exclude *.bak
+global-exclude *.swp
+
+# Exclude test directories if you do not want to distribute them
+global-exclude tests/

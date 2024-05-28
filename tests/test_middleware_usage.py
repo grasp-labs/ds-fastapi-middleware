@@ -5,8 +5,8 @@ from fastapi import Depends, FastAPI, Request
 from fastapi.testclient import TestClient
 from moto import mock_aws
 
-from middleware import ContextMiddleware, UsageMiddleware, utils
-from middleware.utils.log.stdout import Logger
+from ds_fastapi_middleware import ContextMiddleware, UsageMiddleware, utils
+from ds_fastapi_middleware.utils.log.stdout import Logger
 
 
 def mock_authorize(request: Request):

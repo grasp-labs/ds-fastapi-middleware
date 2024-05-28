@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ds_fastapi_middleware.middlewares package &#8212; ds-fastapi-middleware 2024.3.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
+    <script src="_static/documentation_options.js?v=e8ad7243"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+
+
+
+
+
+  </head><body>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+
+
+          <div class="body" role="main">
+
+  <section id="ds-fastapi-middleware-middlewares-package">
+<h1>ds_fastapi_middleware.middlewares package<a class="headerlink" href="#ds-fastapi-middleware-middlewares-package" title="Link to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-ds_fastapi_middleware.middlewares.audit">
+<span id="ds-fastapi-middleware-middlewares-audit-module"></span><h2>ds_fastapi_middleware.middlewares.audit module<a class="headerlink" href="#module-ds_fastapi_middleware.middlewares.audit" title="Link to this heading">¶</a></h2>
+<p>FastAPI middleware for keeping revision trail.</p>
+<p>The purpose of audit logging is to maintain a revision trail for any requests
+that trigger functionality within the system. According to this definition:
+- Unauthorized requests will not trigger functionality and, therefore, will not
+be logged by the audit middleware.
+- Internal traffic that does not trigger functionality will also not be logged.</p>
+<ul class="simple">
+<li><p>When a user is authenticated, the audit log will record the following details:</p></li>
+</ul>
+<ul class="simple">
+<li><p>Which user performed the action</p></li>
+<li><p>What action was performed</p></li>
+<li><p>When the action occurred</p></li>
+<li><p>The result of the action</p></li>
+</ul>
+<p>Example:
+&gt;&gt;&gt; audit_logger = logging.getLogger(“service-name-audit”)
+&gt;&gt;&gt; audit_logger.addHandler(DynamoDbHandler(table_name=”service-name-test”))
+&gt;&gt;&gt; audit_logger.setLevel(logging.INFO)
+&gt;&gt;&gt; app.add_middleware(AuditMiddleware, logger=audit_logger)</p>
+<p>&#64;note
+* Dynamodb table will be created if not existing.
+* Actions from unauthorized user and internal ips are ignored.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="ds_fastapi_middleware.middlewares.audit.AuditMiddleware">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ds_fastapi_middleware.middlewares.audit.</span></span><span class="sig-name descname"><span class="pre">AuditMiddleware</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">FastAPI</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ds_fastapi_middleware.middlewares.audit.AuditMiddleware" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseHTTPMiddleware</span></code></p>
+<p>Middleware for creating audit records on all requests made to fastAPI
+web frameworks.</p>
+<p>Middleware secure that on all requests made to api’s, internal and
+internet facing, a record will be created on which user, tenant and
+service, how the service was used, from which IP at what time.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ds_fastapi_middleware.middlewares.audit.AuditMiddleware.dispatch">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">call_next</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">callable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Response</span></span></span><a class="headerlink" href="#ds_fastapi_middleware.middlewares.audit.AuditMiddleware.dispatch" title="Link to this definition">¶</a></dt>
+<dd><p>Dispatch method to handle the request and response.
+:param request: FastAPI request object.
+:param call_next: Callable function to call the next middleware.
+:return: FastAPI response object.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-ds_fastapi_middleware.middlewares.ctx">
+<span id="ds-fastapi-middleware-middlewares-ctx-module"></span><h2>ds_fastapi_middleware.middlewares.ctx module<a class="headerlink" href="#module-ds_fastapi_middleware.middlewares.ctx" title="Link to this heading">¶</a></h2>
+<p>FastAPI middleware to manage the context of the request.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="ds_fastapi_middleware.middlewares.ctx.ContextMiddleware">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ds_fastapi_middleware.middlewares.ctx.</span></span><span class="sig-name descname"><span class="pre">ContextMiddleware</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">FastAPI</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">injector</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ds_fastapi_middleware.utils.html#ds_fastapi_middleware.utils.dependency_injection.AppInjector" title="ds_fastapi_middleware.utils.dependency_injection.AppInjector"><span class="pre">AppInjector</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ds_fastapi_middleware.middlewares.ctx.ContextMiddleware" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseHTTPMiddleware</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ds_fastapi_middleware.middlewares.ctx.ContextMiddleware.dispatch">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">call_next</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Response</span></span></span><a class="headerlink" href="#ds_fastapi_middleware.middlewares.ctx.ContextMiddleware.dispatch" title="Link to this definition">¶</a></dt>
+<dd><p>Dispatch method to handle the request and response.
+:param request: FastAPI request object.
+:param call_next: Callable function to call the next middleware.
+:return: FastAPI response object.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-ds_fastapi_middleware.middlewares.timeout">
+<span id="ds-fastapi-middleware-middlewares-timeout-module"></span><h2>ds_fastapi_middleware.middlewares.timeout module<a class="headerlink" href="#module-ds_fastapi_middleware.middlewares.timeout" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="ds_fastapi_middleware.middlewares.timeout.TimeoutMiddleware">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ds_fastapi_middleware.middlewares.timeout.</span></span><span class="sig-name descname"><span class="pre">TimeoutMiddleware</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">FastAPI</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retry_after</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ds_fastapi_middleware.middlewares.timeout.TimeoutMiddleware" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseHTTPMiddleware</span></code></p>
+<p>Returning a 504 error if the request processing time is above a
+certain threshold.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ds_fastapi_middleware.middlewares.timeout.TimeoutMiddleware.dispatch">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">call_next</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Response</span></span></span><a class="headerlink" href="#ds_fastapi_middleware.middlewares.timeout.TimeoutMiddleware.dispatch" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-ds_fastapi_middleware.middlewares.usage">
+<span id="ds-fastapi-middleware-middlewares-usage-module"></span><h2>ds_fastapi_middleware.middlewares.usage module<a class="headerlink" href="#module-ds_fastapi_middleware.middlewares.usage" title="Link to this heading">¶</a></h2>
+<p>Usage middleware for tracing service usage in fastApi applications.</p>
+<p>Usage metrics is collected and written to storage system for
+the purpose of billing customer.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="ds_fastapi_middleware.middlewares.usage.UsageMiddleware">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ds_fastapi_middleware.middlewares.usage.</span></span><span class="sig-name descname"><span class="pre">UsageMiddleware</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">FastAPI</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">product_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_mb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ds_fastapi_middleware.middlewares.usage.UsageMiddleware" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseHTTPMiddleware</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ds_fastapi_middleware.middlewares.usage.UsageMiddleware.dispatch">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">call_next</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ds_fastapi_middleware.middlewares.usage.UsageMiddleware.dispatch" title="Link to this definition">¶</a></dt>
+<dd><p>Function to collect usage data and write to Cost database.
+&#64;param request: Request object.
+&#64;param call_next: Function to call next.
+&#64;return: Response.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-ds_fastapi_middleware.middlewares">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ds_fastapi_middleware.middlewares" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="ds_fastapi_middleware.middlewares.AuditMiddleware">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ds_fastapi_middleware.middlewares.</span></span><span class="sig-name descname"><span class="pre">AuditMiddleware</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">FastAPI</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ds_fastapi_middleware.middlewares.AuditMiddleware" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseHTTPMiddleware</span></code></p>
+<p>Middleware for creating audit records on all requests made to fastAPI
+web frameworks.</p>
+<p>Middleware secure that on all requests made to api’s, internal and
+internet facing, a record will be created on which user, tenant and
+service, how the service was used, from which IP at what time.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ds_fastapi_middleware.middlewares.AuditMiddleware.dispatch">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">call_next</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">callable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Response</span></span></span><a class="headerlink" href="#ds_fastapi_middleware.middlewares.AuditMiddleware.dispatch" title="Link to this definition">¶</a></dt>
+<dd><p>Dispatch method to handle the request and response.
+:param request: FastAPI request object.
+:param call_next: Callable function to call the next middleware.
+:return: FastAPI response object.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ds_fastapi_middleware.middlewares.ContextMiddleware">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ds_fastapi_middleware.middlewares.</span></span><span class="sig-name descname"><span class="pre">ContextMiddleware</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">FastAPI</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">injector</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ds_fastapi_middleware.utils.html#ds_fastapi_middleware.utils.dependency_injection.AppInjector" title="ds_fastapi_middleware.utils.dependency_injection.AppInjector"><span class="pre">AppInjector</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ds_fastapi_middleware.middlewares.ContextMiddleware" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseHTTPMiddleware</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ds_fastapi_middleware.middlewares.ContextMiddleware.dispatch">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">call_next</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Response</span></span></span><a class="headerlink" href="#ds_fastapi_middleware.middlewares.ContextMiddleware.dispatch" title="Link to this definition">¶</a></dt>
+<dd><p>Dispatch method to handle the request and response.
+:param request: FastAPI request object.
+:param call_next: Callable function to call the next middleware.
+:return: FastAPI response object.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ds_fastapi_middleware.middlewares.TimeoutMiddleware">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ds_fastapi_middleware.middlewares.</span></span><span class="sig-name descname"><span class="pre">TimeoutMiddleware</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">FastAPI</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retry_after</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ds_fastapi_middleware.middlewares.TimeoutMiddleware" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseHTTPMiddleware</span></code></p>
+<p>Returning a 504 error if the request processing time is above a
+certain threshold.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ds_fastapi_middleware.middlewares.TimeoutMiddleware.dispatch">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">call_next</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Response</span></span></span><a class="headerlink" href="#ds_fastapi_middleware.middlewares.TimeoutMiddleware.dispatch" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ds_fastapi_middleware.middlewares.UsageMiddleware">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ds_fastapi_middleware.middlewares.</span></span><span class="sig-name descname"><span class="pre">UsageMiddleware</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">FastAPI</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">product_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_mb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ds_fastapi_middleware.middlewares.UsageMiddleware" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseHTTPMiddleware</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ds_fastapi_middleware.middlewares.UsageMiddleware.dispatch">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">call_next</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ds_fastapi_middleware.middlewares.UsageMiddleware.dispatch" title="Link to this definition">¶</a></dt>
+<dd><p>Function to collect usage data and write to Cost database.
+&#64;param request: Request object.
+&#64;param call_next: Function to call next.
+&#64;return: Response.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">ds-fastapi-middleware</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, skerve yuan1979.
+
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.3.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+
+      |
+      <a href="_sources/ds_fastapi_middleware.middlewares.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+
+
+
+  </body>
+</html>
