@@ -3,17 +3,16 @@ FastAPI middleware for keeping revision trail.
 
 The purpose of audit logging is to maintain a revision trail for any requests
 that trigger functionality within the system. According to this definition:
--   Unauthorized requests will not trigger functionality and, therefore, will not
-    be logged by the audit middleware.
--   Internal traffic that does not trigger functionality will also not be logged.
+- Unauthorized requests will not trigger functionality and, therefore, will not
+be logged by the audit middleware.
+- Internal traffic that does not trigger functionality will also not be logged.
 
--   When a user is authenticated, the audit log will record the following
-    details:
+- When a user is authenticated, the audit log will record the following details:
 
-*   Which user performed the action
-*   What action was performed
-*   When the action occurred
-*   The result of the action
+* Which user performed the action
+* What action was performed
+* When the action occurred
+* The result of the action
 
 Example:
 >>> audit_logger = logging.getLogger("service-name-audit")

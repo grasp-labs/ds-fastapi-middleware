@@ -72,6 +72,7 @@ class AppInjector(ABC):
         lifetime which mean the build function is called
         everytime. Use WithLifeTime.Singleton to use a single
         instance instead
+
         :return:
         """
         if asyncio.iscoroutinefunction(factory_coroutine):

@@ -80,3 +80,24 @@ details.
 
 ## Documentation
 Full documentation is available at [Documentation]
+
+## Sphinx
+To build the documentation, you need to install Sphinx:
+
+```bash
+pipenv install --dev
+```
+
+To build the documentation, run:
+
+```bash
+pipenv run sphinx-apidoc -o source ds_fastapi_middleware 
+```
+ApiDoc will generate the rst files in the source directory. 
+
+To build the html, run:
+
+```bash
+pipenv run sphinx-build -b html source _build
+```
+Sphinx will generate the html files in the _build directory.
