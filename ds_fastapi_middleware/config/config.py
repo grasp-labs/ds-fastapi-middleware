@@ -4,7 +4,7 @@ import yaml
 
 
 def load_config():
-    root = pathlib.Path(__file__).parents[2]
+    root = pathlib.Path(__file__).parents[1]
     file_name = os.getenv("DS_CONFIG_FILE", "default_config.yml")
     file_path = os.path.join(root, file_name)
     with open(file_path, "r") as file:
