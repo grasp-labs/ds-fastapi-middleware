@@ -1,6 +1,7 @@
 """
 Factory to create boto3 client.
 """
+
 import os
 
 import boto3

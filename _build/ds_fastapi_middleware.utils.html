@@ -110,6 +110,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ds_fastapi_middleware.utils.log.html#ds_fastapi_middleware.utils.log.stdout.Logger.debug"><code class="docutils literal notranslate"><span class="pre">Logger.debug()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ds_fastapi_middleware.utils.log.html#ds_fastapi_middleware.utils.log.stdout.Logger.error"><code class="docutils literal notranslate"><span class="pre">Logger.error()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ds_fastapi_middleware.utils.log.html#ds_fastapi_middleware.utils.log.stdout.Logger.info"><code class="docutils literal notranslate"><span class="pre">Logger.info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ds_fastapi_middleware.utils.log.html#ds_fastapi_middleware.utils.log.stdout.Logger.logger_name"><code class="docutils literal notranslate"><span class="pre">Logger.logger_name</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ds_fastapi_middleware.utils.log.html#ds_fastapi_middleware.utils.log.stdout.Logger.setup_logger"><code class="docutils literal notranslate"><span class="pre">Logger.setup_logger()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ds_fastapi_middleware.utils.log.html#ds_fastapi_middleware.utils.log.stdout.Logger.shutdown"><code class="docutils literal notranslate"><span class="pre">Logger.shutdown()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ds_fastapi_middleware.utils.log.html#ds_fastapi_middleware.utils.log.stdout.Logger.warning"><code class="docutils literal notranslate"><span class="pre">Logger.warning()</span></code></a></li>
@@ -124,6 +125,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ds_fastapi_middleware.utils.log.html#ds_fastapi_middleware.utils.log.Logger.debug"><code class="docutils literal notranslate"><span class="pre">Logger.debug()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ds_fastapi_middleware.utils.log.html#ds_fastapi_middleware.utils.log.Logger.error"><code class="docutils literal notranslate"><span class="pre">Logger.error()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ds_fastapi_middleware.utils.log.html#ds_fastapi_middleware.utils.log.Logger.info"><code class="docutils literal notranslate"><span class="pre">Logger.info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ds_fastapi_middleware.utils.log.html#ds_fastapi_middleware.utils.log.Logger.logger_name"><code class="docutils literal notranslate"><span class="pre">Logger.logger_name</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ds_fastapi_middleware.utils.log.html#ds_fastapi_middleware.utils.log.Logger.setup_logger"><code class="docutils literal notranslate"><span class="pre">Logger.setup_logger()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ds_fastapi_middleware.utils.log.html#ds_fastapi_middleware.utils.log.Logger.shutdown"><code class="docutils literal notranslate"><span class="pre">Logger.shutdown()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ds_fastapi_middleware.utils.log.html#ds_fastapi_middleware.utils.log.Logger.warning"><code class="docutils literal notranslate"><span class="pre">Logger.warning()</span></code></a></li>
@@ -289,14 +291,11 @@ first call then always provides this instance</p>
 <p>Utils for ip handling</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="ds_fastapi_middleware.utils.internal_traffic.is_private_ip">
-<span class="sig-prename descclassname"><span class="pre">ds_fastapi_middleware.utils.internal_traffic.</span></span><span class="sig-name descname"><span class="pre">is_private_ip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ds_fastapi_middleware.utils.internal_traffic.is_private_ip" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ds_fastapi_middleware.utils.internal_traffic.</span></span><span class="sig-name descname"><span class="pre">is_private_ip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">networks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ds_fastapi_middleware.utils.internal_traffic.is_private_ip" title="Link to this definition">¶</a></dt>
 <dd><p>Check if the IP belongs to private network blocks.
-:param ip: IP address to verify.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True representing whether the IP belongs.</p>
-</dd>
-</dl>
+&#64;param ip: IP address to verify.
+&#64;param networks: List of private network blocks.
+&#64;return: True representing whether the IP belongs.</p>
 </dd></dl>
 
 </section>

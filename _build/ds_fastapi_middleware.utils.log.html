@@ -39,7 +39,7 @@
 <span id="ds-fastapi-middleware-utils-log-audit-module"></span><h2>ds_fastapi_middleware.utils.log.audit module<a class="headerlink" href="#module-ds_fastapi_middleware.utils.log.audit" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="ds_fastapi_middleware.utils.log.audit.DynamoDbHandler">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ds_fastapi_middleware.utils.log.audit.</span></span><span class="sig-name descname"><span class="pre">DynamoDbHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ds_fastapi_middleware.utils.log.audit.DynamoDbHandler" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ds_fastapi_middleware.utils.log.audit.</span></span><span class="sig-name descname"><span class="pre">DynamoDbHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_create</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">read_capacity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_capacity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ds_fastapi_middleware.utils.log.audit.DynamoDbHandler" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">StreamHandler</span></code></p>
 <p>Handler log messages to a Dynamo table and is designed to be used with
 the standard python logging mechanism.</p>
@@ -51,26 +51,20 @@ the standard python logging mechanism.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ds_fastapi_middleware.utils.log.audit.DynamoDbHandler.get_or_create_dynamodb_table">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_or_create_dynamodb_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ds_fastapi_middleware.utils.log.audit.DynamoDbHandler.get_or_create_dynamodb_table" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_or_create_dynamodb_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_create</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">read_capacity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_capacity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ds_fastapi_middleware.utils.log.audit.DynamoDbHandler.get_or_create_dynamodb_table" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ds_fastapi_middleware.utils.log.audit.init">
-<span class="sig-prename descclassname"><span class="pre">ds_fastapi_middleware.utils.log.audit.</span></span><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Logger</span></span></span><a class="headerlink" href="#ds_fastapi_middleware.utils.log.audit.init" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ds_fastapi_middleware.utils.log.audit.</span></span><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">read_capacity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_capacity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Logger</span></span></span><a class="headerlink" href="#ds_fastapi_middleware.utils.log.audit.init" title="Link to this definition">¶</a></dt>
 <dd><p>Initialize logger with DynamoDB handler.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>table</strong> – DynamoDB audit table name</p></li>
-<li><p><strong>log_level</strong> – Logging level</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Audit logger</p>
-</dd>
-</dl>
+<p>&#64;param table: DynamoDB audit table name.
+&#64;param read_capacity: Read capacity.
+&#64;param write_capacity: Write capacity.
+&#64;param log_level: Log level.
+&#64;return: Audit logger instance.</p>
 </dd></dl>
 
 </section>
@@ -124,7 +118,7 @@ logger.shutdown()</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ds_fastapi_middleware.utils.log.stdout.Logger.LOGGER">
-<span class="sig-name descname"><span class="pre">LOGGER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;Logger</span> <span class="pre">default</span> <span class="pre">(WARNING)&gt;</span></em><a class="headerlink" href="#ds_fastapi_middleware.utils.log.stdout.Logger.LOGGER" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">LOGGER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;RootLogger</span> <span class="pre">root</span> <span class="pre">(WARNING)&gt;</span></em><a class="headerlink" href="#ds_fastapi_middleware.utils.log.stdout.Logger.LOGGER" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -144,6 +138,11 @@ logger.shutdown()</p>
 <span class="sig-name descname"><span class="pre">info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ds_fastapi_middleware.utils.log.stdout.Logger.info" title="Link to this definition">¶</a></dt>
 <dd><p>Wrapper for logging info func</p>
 </dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ds_fastapi_middleware.utils.log.stdout.Logger.logger_name">
+<span class="sig-name descname"><span class="pre">logger_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ds-logger'</span></em><a class="headerlink" href="#ds_fastapi_middleware.utils.log.stdout.Logger.logger_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ds_fastapi_middleware.utils.log.stdout.Logger.setup_logger">
@@ -200,7 +199,7 @@ logger.shutdown()</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ds_fastapi_middleware.utils.log.Logger.LOGGER">
-<span class="sig-name descname"><span class="pre">LOGGER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;Logger</span> <span class="pre">default</span> <span class="pre">(WARNING)&gt;</span></em><a class="headerlink" href="#ds_fastapi_middleware.utils.log.Logger.LOGGER" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">LOGGER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;RootLogger</span> <span class="pre">root</span> <span class="pre">(WARNING)&gt;</span></em><a class="headerlink" href="#ds_fastapi_middleware.utils.log.Logger.LOGGER" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -220,6 +219,11 @@ logger.shutdown()</p>
 <span class="sig-name descname"><span class="pre">info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ds_fastapi_middleware.utils.log.Logger.info" title="Link to this definition">¶</a></dt>
 <dd><p>Wrapper for logging info func</p>
 </dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ds_fastapi_middleware.utils.log.Logger.logger_name">
+<span class="sig-name descname"><span class="pre">logger_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ds-logger'</span></em><a class="headerlink" href="#ds_fastapi_middleware.utils.log.Logger.logger_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ds_fastapi_middleware.utils.log.Logger.setup_logger">
@@ -243,19 +247,13 @@ logger.shutdown()</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ds_fastapi_middleware.utils.log.init">
-<span class="sig-prename descclassname"><span class="pre">ds_fastapi_middleware.utils.log.</span></span><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Logger</span></span></span><a class="headerlink" href="#ds_fastapi_middleware.utils.log.init" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ds_fastapi_middleware.utils.log.</span></span><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">read_capacity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_capacity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Logger</span></span></span><a class="headerlink" href="#ds_fastapi_middleware.utils.log.init" title="Link to this definition">¶</a></dt>
 <dd><p>Initialize logger with DynamoDB handler.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>table</strong> – DynamoDB audit table name</p></li>
-<li><p><strong>log_level</strong> – Logging level</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Audit logger</p>
-</dd>
-</dl>
+<p>&#64;param table: DynamoDB audit table name.
+&#64;param read_capacity: Read capacity.
+&#64;param write_capacity: Write capacity.
+&#64;param log_level: Log level.
+&#64;return: Audit logger instance.</p>
 </dd></dl>
 
 </section>

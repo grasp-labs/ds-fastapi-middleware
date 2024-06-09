@@ -25,6 +25,7 @@ Example:
 * Dynamodb table will be created if not existing.
 * Actions from unauthorized user and internal ips are ignored.
 """
+
 import typing
 from dataclasses import asdict
 import datetime

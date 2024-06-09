@@ -32,8 +32,48 @@
 
   <section id="welcome-to-ds-fastapi-middleware-s-documentation">
 <h1>Welcome to ds-fastapi-middleware’s documentation!<a class="headerlink" href="#welcome-to-ds-fastapi-middleware-s-documentation" title="Link to this heading">¶</a></h1>
+<p>ds-fastapi-middleware is a Python project that provides middleware components for FastAPI applications. This middleware is designed to enhance the functionality and performance of your FastAPI application by providing common features such as context, usage, audit and timeout.</p>
+<section id="high-level-overview">
+<h2>High-Level Overview<a class="headerlink" href="#high-level-overview" title="Link to this heading">¶</a></h2>
+<p>FastAPI is a modern, fast (high-performance), web framework for building APIs with Python 3.7+ based on standard Python type hints. Middleware in FastAPI allows you to process requests before they reach your endpoint logic and responses before they are sent to the client. Middleware can be used to implement cross-cutting concerns like authentication, logging, error handling, and more.</p>
+</section>
+<section id="key-features">
+<h2>Key Features<a class="headerlink" href="#key-features" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Audit Logging</strong>: Automatically log incoming requests.</p></li>
+<li><p><strong>Context Management</strong>: Manage request context data.</p></li>
+<li><p><strong>Timeout Handling</strong>: Set a timeout for incoming requests and handle timeouts gracefully.</p></li>
+<li><p><strong>Service Usage</strong>: Track and report usage statistics for your API.</p></li>
+</ul>
+</section>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">¶</a></h2>
+<p>To get started with ds-fastapi-middleware, you need to have Python and FastAPI installed. You can install FastAPI and other dependencies using pip:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>fastapi
+pip<span class="w"> </span>install<span class="w"> </span>uvicorn<span class="w">  </span><span class="c1"># ASGI server for FastAPI</span>
+</pre></div>
+</div>
+<p>Then, you can create a simple FastAPI application and add middleware to it:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span>
+<span class="kn">from</span> <span class="nn">ds_fastapi_middleware</span> <span class="kn">import</span> <span class="n">ExampleMiddleware</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="n">app</span><span class="o">.</span><span class="n">add_middleware</span><span class="p">(</span><span class="n">ExampleMiddleware</span><span class="p">)</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">read_root</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;Hello&quot;</span><span class="p">:</span> <span class="s2">&quot;World&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Save the above code in a file, say <cite>main.py</cite>, and run it using an ASGI server like Uvicorn:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uvicorn<span class="w"> </span>main:app<span class="w"> </span>--reload
+</pre></div>
+</div>
+<p>This will start your FastAPI application with the added middleware.</p>
 <div class="toctree-wrapper compound">
 </div>
+</section>
 </section>
 <section id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading">¶</a></h1>
