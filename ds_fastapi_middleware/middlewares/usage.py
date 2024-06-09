@@ -3,11 +3,23 @@ Usage middleware for tracing service usage in fastApi applications.
 
 Usage metrics is collected and written to storage system for
 the purpose of billing customer.
+
+Example:
+>>> from fastapi import FastAPI
+>>> from ds_fastapi_middleware.middlewares import UsageMiddleware
+
+>>> app = FastAPI()
+>>> app.add_middleware(
+>>>     UsageMiddleware,
+>>>     product_id="product_id",
+>>>     memory_mb=1024,
+>>>     queue_name="queue_name",
+>>> )
 """
 
 import datetime
-from uuid import UUID
 import typing
+from uuid import UUID
 
 from fastapi import FastAPI, Request
 from starlette.middleware.base import BaseHTTPMiddleware
@@ -17,15 +29,23 @@ from ds_fastapi_middleware.utils.usage import write_usage
 
 
 class UsageMiddleware(BaseHTTPMiddleware):
-    def __init__(self, app: FastAPI, product_id: UUID, memory_mb: int):
+    def __init__(
+        self,
+        app: FastAPI,
+        product_id: UUID,
+        memory_mb: int,
+        queue_name: str,
+    ):
         """
         Usage middleware for tracing service usage in fastApi applications.
 
         @param product_id: Product UUID.
         @param memory_mb: Memory in megabytes as integer.
+        @param queue_name: Queue name to write the message.
         """
         self.product_id = product_id
         self.memory_mb = memory_mb
+        self.queue_name = queue_name
         super().__init__(app)
 
     async def dispatch(self, request: Request, call_next: typing.Callable):
@@ -57,6 +77,6 @@ class UsageMiddleware(BaseHTTPMiddleware):
             workflow=request.url.path,
         )
         logger.info("Writing usage.")
-        write_usage(usage=usage)
+        write_usage(usage=usage, queue_name=self.queue_name)
         response.headers["X-Usage-Id"] = str(usage.id)
         return response

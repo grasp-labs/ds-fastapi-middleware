@@ -33,7 +33,12 @@ def mock_authorize(request: Request):
 app = FastAPI()
 
 
-app.add_middleware(UsageMiddleware, product_id=uuid.uuid4(), memory_mb=2048)
+app.add_middleware(
+    UsageMiddleware,
+    product_id=uuid.uuid4(),
+    memory_mb=2048,
+    queue_name="default",
+)
 app.add_middleware(ContextMiddleware)
 
 dependencies = [Depends(mock_authorize, use_cache=False)]

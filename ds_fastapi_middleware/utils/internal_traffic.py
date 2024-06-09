@@ -3,17 +3,14 @@
 import struct
 import socket
 
-from ds_fastapi_middleware.config import Config
 
-
-def is_private_ip(ip: str):
+def is_private_ip(ip: str, networks: list = None):
     """
     Check if the IP belongs to private network blocks.
-    :param ip: IP address to verify.
-
-    :return: True representing whether the IP belongs.
+    @param ip: IP address to verify.
+    @param networks: List of private network blocks.
+    @return: True representing whether the IP belongs.
     """
-    networks = Config.get("private_networks", [])
 
     for network in networks:
         try:

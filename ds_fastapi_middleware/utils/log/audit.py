@@ -8,7 +8,6 @@ import boto3
 from botocore.exceptions import ClientError
 
 from ds_fastapi_middleware.errors import Errors
-from ds_fastapi_middleware.config import Config
 
 
 class DynamoDbHandler(logging.StreamHandler):
@@ -17,14 +16,31 @@ class DynamoDbHandler(logging.StreamHandler):
     the standard python logging mechanism.
     """
 
-    def __init__(self, table_name: str, level=logging.DEBUG):
+    def __init__(
+        self,
+        table_name: str,
+        auto_create: bool = True,
+        level=logging.DEBUG,
+        read_capacity: int = 10,
+        write_capacity: int = 10,
+    ):
         """Init log handler and store the table handle"""
         logging.StreamHandler.__init__(self, level)
-
-        self._table = self.get_or_create_dynamodb_table(table_name)
+        self._auto_create = auto_create
+        self._table = self.get_or_create_dynamodb_table(
+            table_name,
+            auto_create=auto_create,
+            read_capacity=read_capacity,
+            write_capacity=write_capacity,
+        )
 
     @staticmethod
-    def get_or_create_dynamodb_table(table_name: str):
+    def get_or_create_dynamodb_table(
+        table_name: str,
+        auto_create: bool = True,
+        read_capacity: int = 10,
+        write_capacity: int = 10,
+    ):
         dynamo_db = boto3.resource("dynamodb")
         table = dynamo_db.Table(table_name)
 
@@ -33,8 +49,7 @@ class DynamoDbHandler(logging.StreamHandler):
             return table
         except ClientError as exc:
             logging.info(f"Dynamodb Table: {table_name} does not exist.")
-            dynamodb = Config.get("aws", {}).get("dynamodb", {})
-            auto_create = dynamodb.get("auto-create", False)
+
             if not auto_create:
                 # If resource does not exist and auto-create is disabled
                 # we are forced to raise an exception
@@ -50,8 +65,8 @@ class DynamoDbHandler(logging.StreamHandler):
                 KeySchema=key_schema,
                 AttributeDefinitions=attr_def,
                 ProvisionedThroughput={
-                    "ReadCapacityUnits": dynamodb.get("read-capacity", 10),
-                    "WriteCapacityUnits": dynamodb.get("write-capacity", 10),
+                    "ReadCapacityUnits": read_capacity,
+                    "WriteCapacityUnits": write_capacity,
                 },
             )
 
@@ -74,15 +89,28 @@ class DynamoDbHandler(logging.StreamHandler):
         return item.get("id", str(uuid.uuid4()))
 
 
-def init(table: str, log_level: str = logging.INFO) -> logging.Logger:
+def init(
+    table: str,
+    log_level: str = logging.INFO,
+    read_capacity: int = 10,
+    write_capacity: int = 10,
+) -> logging.Logger:
     """
     Initialize logger with DynamoDB handler.
 
-    :param table: DynamoDB audit table name
-    :param log_level: Logging level
-    :return: Audit logger
+    @param table: DynamoDB audit table name.
+    @param read_capacity: Read capacity.
+    @param write_capacity: Write capacity.
+    @param log_level: Log level.
+    @return: Audit logger instance.
     """
     logger = logging.getLogger(table)
-    logger.addHandler(DynamoDbHandler(table_name=table))
+    logger.addHandler(
+        DynamoDbHandler(
+            table_name=table,
+            read_capacity=read_capacity,
+            write_capacity=write_capacity,
+        )
+    )
     logger.setLevel(log_level)
     return logger

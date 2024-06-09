@@ -29,7 +29,7 @@ def test_init(monkeypatch):
     app = FastAPI()
 
     # Add middleware
-    app.add_middleware(AuditMiddleware, logger=logger)
+    app.add_middleware(AuditMiddleware, logger=logger, networks=[])
 
     @app.get("/hello")
     async def hello():
