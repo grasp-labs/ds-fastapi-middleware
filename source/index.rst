@@ -27,17 +27,18 @@ To get started with ds-fastapi-middleware, you need to have Python and FastAPI i
 
     pip install fastapi
     pip install uvicorn  # ASGI server for FastAPI
+    pip install ds-fastapi-middleware
 
 Then, you can create a simple FastAPI application and add middleware to it:
 
 .. code-block:: python
 
     from fastapi import FastAPI
-    from ds_fastapi_middleware import ExampleMiddleware
+    from ds_fastapi_middleware import ContextMiddleware
 
     app = FastAPI()
 
-    app.add_middleware(ExampleMiddleware)
+    app.add_middleware(ContextMiddleware)
 
     @app.get("/")
     async def read_root():
