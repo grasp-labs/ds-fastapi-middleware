@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ds_fastapi_middleware"
-version = "2024.4.4"
+version = "2024.4.3"
 description = "A Python package for FastAPI middleware. Pacakge is part of the greater GraspDP / DPW project."
 dependencies = [
     "boto3",
