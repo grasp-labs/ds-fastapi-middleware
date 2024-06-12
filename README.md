@@ -92,6 +92,7 @@ pipenv install --dev
 ### Running Tests
 
 ```bash
+set PYTHONPATH=src/
 pipenv run pytest
 ```
 
@@ -116,13 +117,14 @@ pipenv install --dev
 To build the documentation, run:
 
 ```bash
-pipenv run sphinx-apidoc -o source ds_fastapi_middleware
+pipenv run sphinx-apidoc -o docs/source/_autogen src/ds_fastapi_middleware
 ```
-ApiDoc will generate the rst files in the source directory.
+ApiDoc will generate the rst files in the docs/source/_autogen directory.
 
 To build the html, run:
 
 ```bash
-pipenv run sphinx-build -b html source _build
+cd docs
+pipenv run make html
 ```
 Sphinx will generate the html files in the _build directory.

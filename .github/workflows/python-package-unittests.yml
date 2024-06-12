@@ -34,6 +34,8 @@ jobs:
         pip install moto
         pip install httpx
     - name: Run tests
+      env:
+        PYTHONPATH: "src/"
       run: |
         coverage run --source=. -m pytest
         coverage report -m --omit="*/tests/*"

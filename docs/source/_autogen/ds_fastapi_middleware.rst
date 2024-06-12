@@ -7,7 +7,6 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   ds_fastapi_middleware.config
    ds_fastapi_middleware.errors
    ds_fastapi_middleware.middlewares
    ds_fastapi_middleware.models
