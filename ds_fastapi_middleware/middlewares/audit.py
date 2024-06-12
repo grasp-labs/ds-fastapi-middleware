@@ -49,7 +49,7 @@ class AuditMiddleware(BaseHTTPMiddleware):
     service, how the service was used, from which IP at what time.
     """
 
-    def __init__(self, app: FastAPI, *, logger, networks: typing.List = []):
+    def __init__(self, app: FastAPI, *, logger, networks: typing.List):
         self._logger = logger
         self._networks = networks
         super().__init__(app)
