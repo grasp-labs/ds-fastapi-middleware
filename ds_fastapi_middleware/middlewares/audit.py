@@ -15,10 +15,10 @@ be logged by the audit middleware.
 * The result of the action
 
 Example:
->>> audit_logger = logging.getLogger("service-name-audit")
->>> audit_logger.addHandler(DynamoDbHandler(table_name="service-name-test"))
+>>> audit_logger = logging.getLogger("service-name-logger")
+>>> audit_logger.addHandler(DynamoDbHandler(table_name="service-name-audit"))
 >>> audit_logger.setLevel(logging.INFO)
->>> app.add_middleware(AuditMiddleware, logger=audit_logger)
+>>> app.add_middleware(AuditMiddleware, logger=audit_logger, networks=[""])
 
 
 @note
@@ -26,6 +26,7 @@ Example:
 * Actions from unauthorized user and internal ips are ignored.
 """
 
+import typing
 from dataclasses import asdict
 import datetime
 from typing import Union
@@ -48,8 +49,9 @@ class AuditMiddleware(BaseHTTPMiddleware):
     service, how the service was used, from which IP at what time.
     """
 
-    def __init__(self, app: FastAPI, *, logger, **kwargs):
+    def __init__(self, app: FastAPI, *, logger, networks: typing.List):
         self._logger = logger
+        self._networks = networks
         super().__init__(app)
 
     async def dispatch(
@@ -115,7 +117,7 @@ class AuditMiddleware(BaseHTTPMiddleware):
         if not ip:
             return True
 
-        if internal_traffic.is_private_ip(ip):
+        if internal_traffic.is_private_ip(ip, networks=self._networks):
             return True
 
         return False

@@ -1,9 +1,8 @@
 """Uniform Logger for ds"""
 
-import sys
 import logging
-
-from ds_fastapi_middleware.config import Config
+import os
+import sys
 
 
 class ContextFilter(logging.Filter):
@@ -50,11 +49,11 @@ class Logger:
     logger.shutdown()
     """
 
-    _data = Config["logging"]
-    LOGGER = logging.getLogger(_data["name"])
+    logger_name = os.environ.get("DS_LOGGER_NAME", "ds-logger")
+    LOGGER = logging.getLogger()
     FORMATTER = logging.Formatter(
-        _data["fmt"],
-        _data["datefmt"],
+        "[%(asctime)s][%(levelname)s]%(prefix)s[%(module)s]: %(message)s",
+        "%Y-%m-%d %H:%M:%S",
     )
 
     def __init__(self, log_level=logging.DEBUG) -> None:

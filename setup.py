@@ -3,10 +3,10 @@ from setuptools import setup, find_packages
 
 setup(
     name="ds_fastapi_middleware",
-    version="2024.3.2",
+    version="2024.4.2",
     packages=find_packages(),
     include_package_data=True,
-    package_data={"": ["source/*.rst", "source/*.md", "default_config.yml"]},
+    package_data={"": ["source/*.rst", "source/*.md"]},
     install_requires=[
         "fastapi",
         "boto3",

@@ -40,9 +40,10 @@
 <p>Module for service middleware</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="ds_fastapi_middleware.utils.usage.write.write_usage">
-<span class="sig-prename descclassname"><span class="pre">ds_fastapi_middleware.utils.usage.write.</span></span><span class="sig-name descname"><span class="pre">write_usage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">usage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ds_fastapi_middleware.models.html#ds_fastapi_middleware.models.usage.UsagePayload" title="ds_fastapi_middleware.models.usage.UsagePayload"><span class="pre">UsagePayload</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ds_fastapi_middleware.utils.usage.write.write_usage" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ds_fastapi_middleware.utils.usage.write.</span></span><span class="sig-name descname"><span class="pre">write_usage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">usage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ds_fastapi_middleware.models.html#ds_fastapi_middleware.models.usage.UsagePayload" title="ds_fastapi_middleware.models.usage.UsagePayload"><span class="pre">UsagePayload</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">queue_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ds_fastapi_middleware.utils.usage.write.write_usage" title="Link to this definition">¶</a></dt>
 <dd><p>Function to write usage metrics.
 &#64;param usage: Usage model instance.
+&#64;param queue_name: Queue name to write the message.
 &#64;return: Message ID.</p>
 </dd></dl>
 
@@ -51,9 +52,10 @@
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ds_fastapi_middleware.utils.usage" title="Link to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="ds_fastapi_middleware.utils.usage.write_usage">
-<span class="sig-prename descclassname"><span class="pre">ds_fastapi_middleware.utils.usage.</span></span><span class="sig-name descname"><span class="pre">write_usage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">usage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ds_fastapi_middleware.models.html#ds_fastapi_middleware.models.usage.UsagePayload" title="ds_fastapi_middleware.models.usage.UsagePayload"><span class="pre">UsagePayload</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ds_fastapi_middleware.utils.usage.write_usage" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ds_fastapi_middleware.utils.usage.</span></span><span class="sig-name descname"><span class="pre">write_usage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">usage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ds_fastapi_middleware.models.html#ds_fastapi_middleware.models.usage.UsagePayload" title="ds_fastapi_middleware.models.usage.UsagePayload"><span class="pre">UsagePayload</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">queue_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ds_fastapi_middleware.utils.usage.write_usage" title="Link to this definition">¶</a></dt>
 <dd><p>Function to write usage metrics.
 &#64;param usage: Usage model instance.
+&#64;param queue_name: Queue name to write the message.
 &#64;return: Message ID.</p>
 </dd></dl>
 

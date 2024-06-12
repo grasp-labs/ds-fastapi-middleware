@@ -10,6 +10,7 @@ pytest-asyncio = "*"
 moto = "*"
 httpx = "*"
 sphinx = "*"
+build = "*"
 
 [packages]
 fastapi = "*"

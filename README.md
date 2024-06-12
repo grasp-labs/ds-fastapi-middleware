@@ -28,23 +28,48 @@ You can install the FastAPI Middleware package using pip:
 
 ```bash
 pip install ds_fastapi_middleware
+```
 
 ## Usage
 To use the middleware in your FastAPI application, add it to your app as
 follows:
 
+### Context Middleware
+
 ```python
 from fastapi import FastAPI
-from ds_fastapi_middleware import middleware
+from ds_fastapi_middleware import middlewares
 
 app = FastAPI()
 
-app.add_middleware(middleware.ContextMiddleware)
+app.add_middleware(middlewares.ContextMiddleware)
 
 @app.get("/hello")
 async def hello():
     return {"message": "Hello World"}
 ```
+
+### Usage Middleware
+
+```python
+from fastapi import FastAPI
+from ds_fastapi_middleware.middlewares import UsageMiddleware
+
+app = FastAPI()
+
+app.add_middleware(
+    UsageMiddleware,
+    product_id="product_id",
+    memory_mb=1024,
+    queue_name="queue_name",
+)
+```
+
+## Configuration
+The middleware can be configured by setting the following environment variables:
+
+- DS_LOGGER_NAME: The name of the logger to use. Default is "ds-logger".
+- AWS_DEFAULT_REGION: The default AWS region to use. Default is "eu-north-1".
 
 ## Development
 If you want to contribute to the development of this package, follow the
