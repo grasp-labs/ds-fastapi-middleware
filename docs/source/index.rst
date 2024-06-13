@@ -6,6 +6,8 @@
 Welcome to ds-fastapi-middleware's documentation!
 =================================================
 
+:Version: |version|
+
 ds-fastapi-middleware is a Python project that provides middleware components for FastAPI applications. This middleware is designed to enhance the functionality and performance of your FastAPI application by providing common features such as context, usage, audit and timeout.
 
 High-Level Overview
@@ -52,9 +54,10 @@ Save the above code in a file, say `main.py`, and run it using an ASGI server li
 
 This will start your FastAPI application with the added middleware.
 
+Contents
+=============
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
 
    _autogen/modules
 

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ds_fastapi_middleware"
-version = "2024.4.3"
+dynamic = ["version"]
 description = "A Python package for FastAPI middleware. Pacakge is part of the greater GraspDP / DPW project."
 dependencies = [
     "boto3",
@@ -34,6 +34,9 @@ Documentation = "https://github.com/grasp-labs/ds-fastapi-middleware"
 Repository = "https://github.com/grasp-labs/ds-fastapi-middleware"
 Issues = "https://github.com/grasp-labs/ds-fastapi-middleware/issues"
 Changelog = "https://github.com/grasp-labs/ds-fastapi-middleware/blob/main/CHANGELOG.md"
+
+[tool.setuptools.dynamic]
+version = {file = "VERSION.txt"}
 
 [tool.sphinx-autobuild]
 source-dir = "docs"

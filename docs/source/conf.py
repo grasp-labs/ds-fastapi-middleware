@@ -17,7 +17,8 @@ sys.path.insert(0, os.path.abspath("../../src"))
 project = "ds-fastapi-middleware"
 copyright = "2024, skerve yuan1979"
 author = "skerve yuan1979"
-release = "2024.4.2"
+version = open("../../VERSION.txt").read().strip()
+release = version
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

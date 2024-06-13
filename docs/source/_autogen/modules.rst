@@ -1,4 +1,4 @@
-ds_fastapi_middleware
+API Reference
 =====================
 
 .. toctree::
