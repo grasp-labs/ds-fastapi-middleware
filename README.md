@@ -114,17 +114,14 @@ To build the documentation, you need to install Sphinx:
 pipenv install --dev
 ```
 
-To build the documentation, run:
-
-```bash
-pipenv run sphinx-apidoc -o docs/source/_autogen src/ds_fastapi_middleware
-```
-ApiDoc will generate the rst files in the docs/source/_autogen directory.
-
 To build the html, run:
 
 ```bash
 cd docs
 pipenv run make html
 ```
-Sphinx will generate the html files in the _build directory.
+Sphinx will generate the html files in the docs/build directory.
+
+The ``sphinx-autoapi``  extension takes care of building a complete
+API reference for all packages under the ``src`` directory. The package
+path can be modified by changing the ``autoapi_dirs`` variable in ``docs/soruce/conf.py``

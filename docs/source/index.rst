@@ -59,8 +59,6 @@ Contents
 .. toctree::
    :maxdepth: 2
 
-   _autogen/modules
-
 Indices and tables
 ==================
 
