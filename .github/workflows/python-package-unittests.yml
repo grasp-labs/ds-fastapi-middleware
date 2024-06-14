@@ -1,4 +1,4 @@
-name: Python package
+name: Run tests
 
 on: [push, pull_request]
 
@@ -12,11 +12,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/setup-python@v5
-      id: cp310
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
       with:
-        python-version: "3.8.0 - 3.11.0"
-    - run: echo '${{ steps.cp310.outputs.python-version }}'
+        python-version: ${{ matrix.python-version }}
+    # You can test your matrix by printing the current Python version
+    - name: Display Python version
+      run: python -c "import sys; print(sys.version)"
 
     # Set AWS region environment variable
     # as a simple way to manage moto
