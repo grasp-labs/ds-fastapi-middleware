@@ -9,7 +9,7 @@ import os
 import sys
 
 # Add the parent directory to the Python path to enable importing modules from the project
-sys.path.insert(0, os.path.abspath(".."))
+sys.path.insert(0, os.path.abspath("../../src"))
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
@@ -17,15 +17,14 @@ sys.path.insert(0, os.path.abspath(".."))
 project = "ds-fastapi-middleware"
 copyright = "2024, skerve yuan1979"
 author = "skerve yuan1979"
-release = "2024.4.2"
+version = open("../../VERSION.txt").read().strip()
+release = version
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = [
-    "sphinx.ext.autodoc",
-    "sphinx.ext.napoleon",  # Optional: Use Google-style docstrings
-]
+extensions = ["autoapi.extension", "sphinx.ext.githubpages"]
+autoapi_dirs = ["../../src"]
 
 templates_path = ["_templates"]
 exclude_patterns = []
