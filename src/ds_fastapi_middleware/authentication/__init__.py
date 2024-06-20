@@ -1,4 +1,4 @@
-from ds_fastapi_middleware.utils.authorization._context import (
+from ds_fastapi_middleware.authentication.context import (
     Context,
     get_or_create_ctx,
 )
