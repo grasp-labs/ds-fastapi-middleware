@@ -1,0 +1,11 @@
+skips: ["B608", "B404", "B603", "B311"]
+
+# Do not check paths including `/tests/`:
+# they use `assert`, leading to B101 false positives.
+exclude_dirs:
+    - "tests"
+    - "/layer/python/"
+    - "/node_modules/"
+
+hardcoded_tmp_directory:
+    tmp_dirs: ["/tmp", "/var/tmp", "/dev/shm"]

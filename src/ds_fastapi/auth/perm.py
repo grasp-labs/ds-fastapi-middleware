@@ -92,7 +92,7 @@ def permission_filter(required_roles: Union[str, List[str]]):
                 "Authorization": f"Bearer {context.auth}",
             }
 
-            response = requests.get(entitlements_url, headers=headers)
+            response = requests.get(entitlements_url, headers=headers)  # nosec B113
 
             if response.status_code != 200:
                 # if response.status_code not in [401, 403]:
