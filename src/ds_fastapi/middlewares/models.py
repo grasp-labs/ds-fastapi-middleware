@@ -1,5 +1,5 @@
 """
-Model for Usage record.
+Module for middleware models
 """
 
 from dataclasses import dataclass
@@ -9,6 +9,10 @@ import uuid
 
 @dataclass(frozen=True)
 class UsagePayload:
+    """
+    Model for Usage record.
+    """
+
     product_id: uuid.UUID
     tenant_id: uuid.UUID
     memory_mb: int
@@ -33,3 +37,20 @@ class UsagePayload:
             "duration": self.duration,
             "created_at": self.created_at,
         }
+
+
+@dataclass(frozen=True)
+class AuditPayload:
+    """
+    Model for Audit record.
+    """
+
+    id: str
+    url: str
+    method: str
+    client_ip: str
+    status_code: int
+    tenant_id: str
+    sub: str
+    process_time: str
+    created_at: str = datetime.datetime.utcnow().isoformat()

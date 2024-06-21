@@ -5,8 +5,9 @@ from fastapi import Depends, FastAPI, Request
 from fastapi.testclient import TestClient
 from moto import mock_aws
 
-from ds_fastapi_middleware import ContextMiddleware, UsageMiddleware, utils
-from ds_fastapi_middleware.utils.log.stdout import Logger
+from ds_fastapi.middlewares import ContextMiddleware, UsageMiddleware
+from ds_fastapi.auth.auth import Context, get_or_create_ctx
+from ds_fastapi.utils.log.stdout import Logger
 
 
 def mock_authorize(request: Request):
@@ -14,20 +15,17 @@ def mock_authorize(request: Request):
     _logger.setup_logger(prefix="[unittest]")
     logger = _logger.LOGGER
 
-    ctx = utils.authorization.get_or_create_ctx()
+    ctx = get_or_create_ctx()
 
     ctx.set_current_with_value(
         logger=logger,
         tenant_id=uuid.uuid4(),
         tenant_name="test tenant",
         auth="test_auth",
-        user="test_user",
-        app_id="test_app_id",
-        is_global_admin_user=True,
-        is_customer_admin=True,
+        sub="test_user",
         app_injector="test_app_injector",
     )
-    request.state.context = utils.authorization.Context.current()
+    request.state.context = Context.current()
 
 
 app = FastAPI()

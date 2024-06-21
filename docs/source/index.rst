@@ -3,12 +3,15 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to ds-fastapi-middleware's documentation!
+Welcome to the ds-fastapi documentation!
 =================================================
 
-:Version: |version|
+.. toctree::
+    :maxdepth: 4
 
-ds-fastapi-middleware is a Python project that provides middleware components for FastAPI applications. This middleware is designed to enhance the functionality and performance of your FastAPI application by providing common features such as context, usage, audit and timeout.
+ds-fastapi is a Python project that provides FastAPI utilites such as middlewares.
+The middlewares are designed to enhance the functionality and performance of your
+FastAPI application by providing common features such as context, usage, audit and timeout.
 
 High-Level Overview
 -------------------
@@ -16,6 +19,8 @@ FastAPI is a modern, fast (high-performance), web framework for building APIs wi
 
 Key Features
 ------------
+- **Authentication**: Requires users to be authenticated before accessing your API.
+- **Authorization**: Restricts access to certain endpoints based on user roles.
 - **Audit Logging**: Automatically log incoming requests.
 - **Context Management**: Manage request context data.
 - **Timeout Handling**: Set a timeout for incoming requests and handle timeouts gracefully.
@@ -29,20 +34,57 @@ To get started with ds-fastapi-middleware, you need to have Python and FastAPI i
 
     pip install fastapi
     pip install uvicorn  # ASGI server for FastAPI
-    pip install ds-fastapi-middleware
+    pip install ds-fastapi
 
-Then, you can create a simple FastAPI application and add middleware to it:
+Then, you can create a simple FastAPI application and add authentication and middleware to it:
 
 .. code-block:: python
 
     from fastapi import FastAPI
-    from ds_fastapi_middleware import ContextMiddleware
+    from ds_fastapi.middlewares import ContextMiddleware
+    from ds_fastapi.auth import Authentication
+
+    def get_key():
+        # Implement your logic to retrieve the public JWT key here
+
+    """
+    Be sure to use the same authentication instance across all routes
+    as this will avoid attemting to fetch the public key each time a
+    request is made.
+    """
+    authentication = Authentication(
+        jwt_key=get_key(),
+    )
 
     app = FastAPI()
 
-    app.add_middleware(ContextMiddleware)
+    # Add an audit logger
+    audit_logger = logging.getLogger("service-name-logger")
+    audit_logger.addHandler(DynamoDbHandler(table_name="service-name-audit"))
+    audit_logger.setLevel(logging.INFO)
+    app.add_middleware(
+        AuditMiddleware,
+        logger=audit_logger,
+        networks=[""],
+    )
 
-    @app.get("/")
+    # Add a timeout middleware
+    app.add_middleware(TimeoutMiddleware)
+
+    # Add a usage middleware
+    app.add_middleware(
+        UsageMiddleware,
+        product_id="product_id",
+        memory_mb=1024,
+        queue_name="queue_name",
+    )
+
+    # Add a context middleware
+    app.add_middleware(ContextMiddleware)
+    # Note: Add the context middleware last so that it is executed first.
+
+
+    @app.get("/", dependencies=[Depends(authentication)])
     async def read_root():
         return {"Hello": "World"}
 
@@ -53,11 +95,6 @@ Save the above code in a file, say `main.py`, and run it using an ASGI server li
     uvicorn main:app --reload
 
 This will start your FastAPI application with the added middleware.
-
-Contents
-=============
-.. toctree::
-   :maxdepth: 2
 
 Indices and tables
 ==================

@@ -2,62 +2,73 @@
 Module for authorization of DaaS service platform services.
 """
 
-import logging
+# import logging
 import jwt
+import os
 
 from fastapi import Request, Depends
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from starlette.authentication import AuthCredentials
 
-from context import get_or_create_ctx, Context
-from ds_fastapi_middleware.errors import WebAppException
-from libs.utils import log_prefix
-from libs.utils.log import DaasLogger
+from ds_fastapi.auth.context import get_or_create_ctx, Context
+from ds_fastapi.errors import WebAppException
+
+# from libs.utils import log_prefix
+# from libs.utils.log import DaasLogger
 
 
-class AuthConfig:
+class Authentication:
     """
-    This class configures and enforces user authentication.
-    Note that the implementation is tightly coupled
-    to the Grasp Identity Server JWT token schema.
+    Creates a callable object that can be used as a dependecy
+    in FastAPI routes to decode authentication headers.
 
     Example::
-    >>> config = AuthConfig(
-    >>>     jwt_key="jwt_key",
-    >>>     iss="https://auth-dev.grasp-daas.com",
-    >>> )
-    >>> app = FastAPI()
-    >>> dependencies = [Depends(config)]
-    >>> app.include_router(
-    >>>     router=some_router,
-    >>>     dependencies=dependencies
-    >>> )
+
+        from ds_fastapi import Authentication
+        auth = Authentication(
+            jwt_key="jwt_key",
+        )
+        app = FastAPI()
+
+        @app.get("/hello", dependencies=[Depends(auth)])
+        async def hello():
+            return {"message": "Hello World"}
 
 
-    :param jwt_key: The key for the JWT.
-    :param oauth_key: The key for the OAuth.
-    :param aud: The audience.
-    :param iss: The issuer.
+    :param jwt_key: The public JWT key.
+    :param aud: The JWT audience.
+    :param iss: The JWT issuer.
     :param token_schema: The token schema.
+    :
     """
+
+    ISSUER = (
+        "https://auth-dev.grasp-daas.com"
+        if os.environ.get("BUILDING_MODE", "dev").lower() != "prod"
+        else "https://auth.grasp-daas.com"
+    )
+    AUDIENCE = ["https://grasp-daas.com"]
+    TOKEN_SCHEMA = "Bearer"  # nosec
 
     def __init__(
         self,
-        jwt_key: str,
-        iss: str,
-        aud: str = ["https://grasp-daas.com"],
-        token_schema: str = "Bearer",  # nosec
+        jwt_key: str = None,
+        iss: str = None,
+        aud: str = None,
+        token_schema: str = None,
     ):
-        self.TOKEN_SCHEMA = token_schema
-        logger.setLevel(logging.WARNING)
-        self.aud = aud
-        self.iss = iss
         self.jwt_key = jwt_key
+        self.TOKEN_SCHEMA = token_schema if token_schema else self.TOKEN_SCHEMA
+        # logger.setLevel(logging.WARNING)
+        self.aud = aud if aud else self.AUDIENCE
+        self.iss = iss if iss else self.ISSUER
 
     async def __call__(
         self,
         request: Request,
-        credentials: HTTPAuthorizationCredentials = Depends(HTTPBearer()),
+        credentials: HTTPAuthorizationCredentials = Depends(
+            HTTPBearer(auto_error=False)
+        ),
     ):
         """
         Function for authenticating users. Function decode token using encryption key
@@ -68,10 +79,15 @@ class AuthConfig:
         - Setup logger with tenant/user prefix
         - Define Request context, i.e. assigning user and tenant attributes
         to current Context object.
+
+        Sidenote:
+        Reason for passing auto_error=False to HTTPBearer is discussed
+        here https://github.com/tiangolo/fastapi/issues/10177
         """
-        token = credentials.credentials
-        if not token:
+        if not credentials or not credentials.credentials:
             raise WebAppException.create_unauthorized(message="Missing token.")
+
+        token = credentials.credentials
 
         request.scope["auth"] = AuthCredentials(["authenticated"])
 
@@ -91,14 +107,14 @@ class AuthConfig:
         tenant_id, tenant_name = decoded_token.get("rsc").split(":")
         sub = decoded_token.get("sub")
 
-        logger = DaasLogger()
-        logger.setup_logger(prefix=log_prefix(tenant_id=tenant_id, subject_id=sub))
+        # logger = DaasLogger()
+        # logger.setup_logger(prefix=log_prefix(tenant_id=tenant_id, subject_id=sub))
 
         ctx = get_or_create_ctx()
 
         ctx.set_current_with_value(
             auth=token,
-            logger=logger,
+            # logger=logger,
             tenant_id=tenant_id,
             tenant_name=tenant_name,
             iss=decoded_token.get("iss"),

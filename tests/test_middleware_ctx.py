@@ -3,7 +3,7 @@ import uuid
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
-from ds_fastapi_middleware import ContextMiddleware
+from ds_fastapi.middlewares import ContextMiddleware
 
 
 app = FastAPI()

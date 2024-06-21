@@ -96,6 +96,17 @@ set PYTHONPATH=src/
 pipenv run pytest
 ```
 
+You can also use [nektosact](https://nektosact.com/introduction.html) to execute the test workflow in Docker.
+This will execute tests across the supported python interpreters.
+
+```bash
+act -W '.github/workflows/test.yml'
+```
+You can select a single interpreter by running
+```bash
+act -W '.github/workflows/test.yml' --matrix python-version:3.9
+```
+
 ## License
 This project is licensed under the MIT License. See the LICENSE file for more
 details.

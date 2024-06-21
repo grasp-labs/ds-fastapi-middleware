@@ -5,8 +5,8 @@ from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from moto import mock_aws
 
-from ds_fastapi_middleware import AuditMiddleware
-from ds_fastapi_middleware.utils.log.audit import init
+from ds_fastapi.middlewares import AuditMiddleware
+from ds_fastapi.utils.log.audit import init
 
 
 @mock_aws()

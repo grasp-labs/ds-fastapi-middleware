@@ -3,8 +3,8 @@ import typing
 from botocore.client import BaseClient
 from botocore.exceptions import ClientError
 
-from ds_fastapi_middleware.errors import _exceptions as Errors
-from ds_fastapi_middleware.utils.aws.client_factory import BotoClientFactory
+from ds_fastapi.errors import _exceptions as Errors
+from ds_fastapi.utils.aws.client_factory import BotoClientFactory
 
 
 def get_sqs_url_by_name(queue_name: str) -> str:

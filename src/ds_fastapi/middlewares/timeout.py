@@ -5,13 +5,18 @@ from typing import Callable
 from fastapi import FastAPI, Request, Response
 from starlette.middleware.base import BaseHTTPMiddleware
 
-from ds_fastapi_middleware.errors import WebAppException
+from ds_fastapi.errors import WebAppException
 
 
 class TimeoutMiddleware(BaseHTTPMiddleware):
     """
     Returning a 504 error if the request processing time is above a
     certain threshold.
+
+    Example::
+
+        app = FastAPI()
+        app.add_middleware(TimeoutMiddleware)
     """
 
     def __init__(

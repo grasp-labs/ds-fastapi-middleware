@@ -6,7 +6,7 @@ from httpx import AsyncClient
 from httpx import ASGITransport
 import pytest
 
-from ds_fastapi_middleware import TimeoutMiddleware
+from ds_fastapi.middlewares import TimeoutMiddleware
 
 
 app = FastAPI()

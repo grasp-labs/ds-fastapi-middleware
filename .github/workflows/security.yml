@@ -1,0 +1,18 @@
+name: Security
+
+on: [push]
+
+jobs:
+  run-security:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.11
+    - name: Install bandit
+      run: pip install bandit
+    - name: Check security issue
+      run: bandit -r src -c .bandit.yaml

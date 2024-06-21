@@ -1,8 +1,8 @@
 """Module for service middleware"""
 
-from ds_fastapi_middleware import models
+from ds_fastapi.middlewares import models
 
-from ds_fastapi_middleware.utils.aws.sqs import publish_message
+from ds_fastapi.utils.aws.sqs import publish_message
 
 
 def write_usage(usage: models.UsagePayload, queue_name: str):
