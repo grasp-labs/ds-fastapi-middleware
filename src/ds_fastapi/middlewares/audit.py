@@ -111,7 +111,7 @@ class AuditMiddleware(BaseHTTPMiddleware):
             return True
 
         context = request.state.context
-        if not context.tenant_id or not context.user:
+        if not context.tenant_id or not context.sub:
             return True
 
         ip = self._get_ip(request)
