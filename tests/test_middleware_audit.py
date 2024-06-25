@@ -5,8 +5,7 @@ from fastapi import FastAPI, Depends
 from fastapi.testclient import TestClient
 from moto import mock_aws
 
-from ds_fastapi.auth.auth import Authentication
-from ds_fastapi.auth.context import get_ctx, Context
+from ds_fastapi.auth import Authentication, get_ctx, Context
 from ds_fastapi.middlewares import AuditMiddleware, ContextMiddleware
 from ds_fastapi.utils.log.audit import init
 from tests import patch_auth

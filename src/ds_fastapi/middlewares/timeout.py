@@ -15,6 +15,8 @@ class TimeoutMiddleware(BaseHTTPMiddleware):
 
     Example::
 
+        from fastapi import FastAPI
+        from ds_fastapi.middlewares import TimeoutMiddleware
         app = FastAPI()
         app.add_middleware(TimeoutMiddleware)
     """

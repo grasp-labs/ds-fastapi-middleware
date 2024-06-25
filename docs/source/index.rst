@@ -41,8 +41,20 @@ Then, you can create a simple FastAPI application and add authentication and mid
 .. code-block:: python
 
     from fastapi import FastAPI
-    from ds_fastapi.middlewares import ContextMiddleware
-    from ds_fastapi.auth import Authentication
+    from ds_fastapi.middlewares import (
+        AuditMiddleware,
+        ContextMiddleware,
+        TimeoutMiddleware,
+        UsageMiddleware
+    )
+    from ds_fastapi.auth import (
+        Authentication,
+        Context,
+        premission_filter,
+        get_ctx,
+    )
+    from ds_fastapi.utils.log.audit import init
+
 
     def get_key():
         # Implement your logic to retrieve the public JWT key here
@@ -59,19 +71,17 @@ Then, you can create a simple FastAPI application and add authentication and mid
     app = FastAPI()
 
     # Add an audit logger
-    audit_logger = logging.getLogger("service-name-logger")
-    audit_logger.addHandler(DynamoDbHandler(table_name="service-name-audit"))
-    audit_logger.setLevel(logging.INFO)
+    audit_logger = init("unittest-audit")
     app.add_middleware(
         AuditMiddleware,
         logger=audit_logger,
         networks=[""],
     )
 
-    # Add a timeout middleware
+    # Add the timeout middleware
     app.add_middleware(TimeoutMiddleware)
 
-    # Add a usage middleware
+    # Add the usage middleware
     app.add_middleware(
         UsageMiddleware,
         product_id="product_id",
@@ -79,7 +89,7 @@ Then, you can create a simple FastAPI application and add authentication and mid
         queue_name="queue_name",
     )
 
-    # Add a context middleware
+    # Add the context middleware
     app.add_middleware(ContextMiddleware)
     # Note: Add the context middleware last so that it is executed first.
 
@@ -87,6 +97,14 @@ Then, you can create a simple FastAPI application and add authentication and mid
     @app.get("/", dependencies=[Depends(authentication)])
     async def read_root():
         return {"Hello": "World"}
+
+    # Protected route
+    @app.get("/protected", dependencies=[Depends(authentication)])
+    @permission_filter(["service.cm.user"])
+    async def forbidden(
+        context: Context = Depends(get_ctx),
+    ):
+        return {"iam":"protected"}
 
 Save the above code in a file, say `main.py`, and run it using an ASGI server like Uvicorn:
 

@@ -1,5 +1,12 @@
 """
 FastAPI middleware to manage the context of the request.
+
+Example::
+
+    from fastapi import FastAPI
+    from ds_fastapi.middlewares import ContextMiddleware
+    app = FastAPI()
+    app.add_middleware(ContextMiddleware)
 """
 
 import uuid

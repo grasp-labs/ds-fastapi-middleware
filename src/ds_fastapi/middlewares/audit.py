@@ -16,10 +16,14 @@ be logged by the audit middleware.
 
 Example::
 
-    audit_logger = logging.getLogger("service-name-logger")
-    audit_logger.addHandler(DynamoDbHandler(table_name="service-name-audit"))
-    audit_logger.setLevel(logging.INFO)
-    app.add_middleware(AuditMiddleware, logger=audit_logger, networks=[""])
+    from ds_fastapi.middlewares import AuditMiddleware
+    from ds_fastapi.utils.log.audit import init
+    audit_logger = init("unittest-audit")
+    app.add_middleware(
+        AuditMiddleware,
+        logger=audit_logger,
+        networks=[""],
+    )
 
 
 @note
