@@ -2,7 +2,6 @@
 Module for authorization of DaaS service platform services.
 """
 
-# import logging
 import jwt
 import os
 
@@ -12,9 +11,7 @@ from starlette.authentication import AuthCredentials
 
 from ds_fastapi.auth.context import get_or_create_ctx, Context
 from ds_fastapi.errors import WebAppException
-
-# from libs.utils import log_prefix
-# from libs.utils.log import DaasLogger
+from ds_fastapi.utils.log.stdout import Logger
 
 
 class Authentication:
@@ -56,12 +53,13 @@ class Authentication:
         iss: str = None,
         aud: str = None,
         token_schema: str = None,
+        decode_leeway: float = 3,
     ):
         self.jwt_key = jwt_key
         self.TOKEN_SCHEMA = token_schema if token_schema else self.TOKEN_SCHEMA
-        # logger.setLevel(logging.WARNING)
         self.aud = aud if aud else self.AUDIENCE
         self.iss = iss if iss else self.ISSUER
+        self.decode_leeway = decode_leeway
 
     async def __call__(
         self,
@@ -100,6 +98,7 @@ class Authentication:
                 audience=self.aud,
                 issuer=self.iss,
                 key=self.jwt_key,
+                leeway=self.decode_leeway,
             )
         except jwt.exceptions.PyJWTError as exc:
             raise WebAppException.create_unauthorized(message=str(exc))
@@ -107,14 +106,14 @@ class Authentication:
         tenant_id, tenant_name = decoded_token.get("rsc").split(":")
         sub = decoded_token.get("sub")
 
-        # logger = DaasLogger()
-        # logger.setup_logger(prefix=log_prefix(tenant_id=tenant_id, subject_id=sub))
+        logger = Logger()
+        logger.setup_logger(prefix=f"[{tenant_id}][{sub}]")
 
         ctx = get_or_create_ctx()
 
         ctx.set_current_with_value(
             auth=token,
-            # logger=logger,
+            logger=logger,
             tenant_id=tenant_id,
             tenant_name=tenant_name,
             iss=decoded_token.get("iss"),
