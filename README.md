@@ -1,9 +1,9 @@
 # ds-fastapi
 
 ![Python Versions](https://img.shields.io/badge/python-3.8%20|%203.9%20|%203.10%20|%203.11-blue)
-[![PyPI version](https://badge.fury.io/py/ds-fastapi-middleware.svg)](https://badge.fury.io/py/ds-fastapi-middleware)
-[![Build Status](https://github.com/grasp-labs/ds-fastapi-middleware/actions/workflows/python-package-unittests.yml/badge.svg)](https://github.com/grasp-labs/ds-fastapi-middleware/actions/workflows/python-package-unittests.yml)
-[![codecov](https://codecov.io/gh/grasp-labs/ds-fastapi-middleware/graph/badge.svg?token=8YLGSYG3JQ)](https://codecov.io/gh/grasp-labs/ds-fastapi-middleware)
+[![PyPI version](https://badge.fury.io/py/ds-fastapi.svg)](https://badge.fury.io/py/ds-fastapi)
+[![Build Status](https://github.com/grasp-labs/ds-fastapi/actions/workflows/python-package-unittests.yml/badge.svg)](https://github.com/grasp-labs/ds-fastapi/actions/workflows/python-package-unittests.yml)
+[![codecov](https://codecov.io/gh/grasp-labs/ds-fastapi/graph/badge.svg?token=8YLGSYG3JQ)](https://codecov.io/gh/grasp-labs/ds-fastapi)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 
@@ -162,8 +162,8 @@ steps below to set up your development environment.
 Clone the repository:
 
 ```bash
-git clone https://github.com/grasp-labs/ds-fastapi-middleware.git
-cd ds-fastapi-middleware
+git clone https://github.com/grasp-labs/ds-fastapi.git
+cd ds-fastapi
 ```
 
 Create a virtual environment and install dependencies:

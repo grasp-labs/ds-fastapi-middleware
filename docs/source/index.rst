@@ -1,4 +1,4 @@
-.. ds-fastapi-middleware documentation master file, created by
+.. ds-fastapi documentation master file, created by
    sphinx-quickstart on Tue May 28 13:11:08 2024.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
@@ -28,7 +28,7 @@ Key Features
 
 Getting Started
 ---------------
-To get started with ds-fastapi-middleware, you need to have Python and FastAPI installed. You can install FastAPI and other dependencies using pip:
+To get started with ds-fastapi, you need to have Python and FastAPI installed. You can install FastAPI and other dependencies using pip:
 
 .. code-block:: bash
 

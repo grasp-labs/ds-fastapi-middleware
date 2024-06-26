@@ -7,7 +7,7 @@ the purpose of billing customer.
 Example::
 
     from fastapi import FastAPI
-    from ds_fastapi_middleware.middlewares import UsageMiddleware
+    from ds_fastapi.middlewares import UsageMiddleware
 
     app = FastAPI()
     app.add_middleware(
