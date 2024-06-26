@@ -3,9 +3,9 @@ import time
 from typing import Callable
 
 from fastapi import FastAPI, Request, Response
+from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
-
-from ds_fastapi.errors import WebAppException
+from starlette.status import HTTP_504_GATEWAY_TIMEOUT
 
 
 class TimeoutMiddleware(BaseHTTPMiddleware):
@@ -46,10 +46,11 @@ class TimeoutMiddleware(BaseHTTPMiddleware):
 
         except asyncio.TimeoutError:
             process_time = time.time() - start_time
-            raise WebAppException.create_gateway_timeout(
-                message=f"Gateway timeout out at {process_time} seconds.",
-                header={
-                    "Retry-After": str(self._retry_after),
-                    "X-Response-Time": f"{process_time} seconds.",
-                },
-            )
+        return JSONResponse(
+            status_code=HTTP_504_GATEWAY_TIMEOUT,
+            content={"message": f"Gateway timeout at {process_time} seconds."},
+            headers={
+                "Retry-After": str(self._retry_after),
+                "X-Response-Time": f"{process_time} seconds.",
+            },
+        )
