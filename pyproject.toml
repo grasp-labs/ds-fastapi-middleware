@@ -32,7 +32,7 @@ maintainers = [
 ]
 [project.urls]
 Homepage = "https://github.com/grasp-labs/ds-fastapi"
-Documentation = "https://github.com/grasp-labs/ds-fastapi"
+Documentation = "https://grasp-labs.github.io/ds-fastapi/"
 Repository = "https://github.com/grasp-labs/ds-fastapi"
 Issues = "https://github.com/grasp-labs/ds-fastapie/issues"
 Changelog = "https://github.com/grasp-labs/ds-fastapi/blob/main/CHANGELOG.md"
