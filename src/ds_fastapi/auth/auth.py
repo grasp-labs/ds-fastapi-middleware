@@ -11,7 +11,7 @@ from starlette.authentication import AuthCredentials
 
 from ds_fastapi.auth.context import get_or_create_ctx, Context
 from ds_fastapi.errors import WebAppException
-from ds_fastapi.utils.log.stdout import Logger
+from ds_fastapi.utils.log import Logger
 
 
 class Authentication:
@@ -113,7 +113,7 @@ class Authentication:
 
         ctx.set_current_with_value(
             auth=token,
-            logger=logger,
+            logger=logger.LOGGER,
             tenant_id=tenant_id,
             tenant_name=tenant_name,
             iss=decoded_token.get("iss"),

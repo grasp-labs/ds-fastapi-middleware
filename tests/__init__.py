@@ -23,11 +23,13 @@ def patch_auth(monkeypatch):
     )
 
 
-def patch_permission(monkeypatch, groups=["service.cm.admin"]):
+def patch_permission(monkeypatch, status_code=200, groups=["service.cm.admin"]):
     monkeypatch.setattr(
         requests,
         "get",
-        lambda url, headers: MockResponse(200, [{"name": group} for group in groups]),
+        lambda url, headers: MockResponse(
+            status_code=status_code, content=[{"name": group} for group in groups]
+        ),
     )
 
 

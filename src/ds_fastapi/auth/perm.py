@@ -20,11 +20,6 @@ import requests
 from ds_fastapi.auth import Context
 from ds_fastapi.errors import WebAppException
 
-# from libs.utils.log import DaasLogger
-
-
-# LOGGER = DaasLogger.LOGGER
-
 
 def permission_filter(required_roles: Union[str, List[str]]):
     """
@@ -95,10 +90,11 @@ def permission_filter(required_roles: Union[str, List[str]]):
             response = requests.get(entitlements_url, headers=headers)  # nosec B113
 
             if response.status_code != 200:
-                # if response.status_code not in [401, 403]:
-                #     LOGGER.error(f"{response.status_code} {response.content}")
+                logger = context.logger
+                if response.status_code not in [401, 403]:
+                    logger.error(f"{response.status_code} {response.content}")
 
-                # LOGGER.error("User is not entitled to use service.")
+                logger.error("User is not entitled to use service.")
                 raise WebAppException.create_unauthorized()
 
             groups = response.json()

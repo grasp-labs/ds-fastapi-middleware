@@ -65,9 +65,29 @@ def test_permission_denied(monkeypatch):
     Verify that the API returns a 403 status code when the user does not have the required permission.
     """
     patch_auth(monkeypatch)
-    patch_permission(monkeypatch, [])
+    patch_permission(monkeypatch, groups=[])
     response = client.get("/forbidden", headers={"Authorization": "Bearer valid_token"})
     assert response.status_code == 403
+
+
+def test_permission_access_denied(monkeypatch):
+    """
+    Verify that the API returns a 403 status code when the user does not have the required permission.
+    """
+    patch_auth(monkeypatch)
+    patch_permission(monkeypatch, status_code=403)
+    response = client.get("/forbidden", headers={"Authorization": "Bearer valid_token"})
+    assert response.status_code == 401
+
+
+def test_permission_internal_error(monkeypatch):
+    """
+    Verify that the API returns a 403 status code when the user does not have the required permission.
+    """
+    patch_auth(monkeypatch)
+    patch_permission(monkeypatch, status_code=500)
+    response = client.get("/forbidden", headers={"Authorization": "Bearer valid_token"})
+    assert response.status_code == 401
 
 
 def test_permission(monkeypatch):
