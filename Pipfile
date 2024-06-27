@@ -12,11 +12,13 @@ httpx = "*"
 sphinx = "*"
 build = "*"
 sphinx-autoapi = "*"
+sphinx-material = "*"
 
 [packages]
 fastapi = "*"
 boto3 = "*"
 requests = "*"
+pyjwt = "*"
 
 [requires]
-python_version = ">=3.8, <=3.11"
+python_version = "3.8"

@@ -1,0 +1,19 @@
+ignore:
+  - "tests/*"    # Exclude test files from coverage analysis
+
+# Specify the codecov comment behavior on pull requests and commits.
+comment:
+  layout: "reach, diff, flags, files"  # Customize the comment layout
+
+# Coverage and health settings
+coverage:
+  round: down   # Rounding mode for coverage percentage
+
+health:
+  thresholds:
+    - targets: "*"
+      cover: 85
+      status: error
+    - targets: "*"
+      cover: 90
+      status: warning

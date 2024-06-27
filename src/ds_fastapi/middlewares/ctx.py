@@ -1,5 +1,12 @@
 """
 FastAPI middleware to manage the context of the request.
+
+Example::
+
+    from fastapi import FastAPI
+    from ds_fastapi.middlewares import ContextMiddleware
+    app = FastAPI()
+    app.add_middleware(ContextMiddleware)
 """
 
 import uuid
@@ -7,8 +14,8 @@ from typing import Optional, Callable
 from fastapi import FastAPI, Request, Response
 from starlette.middleware.base import BaseHTTPMiddleware
 
-from ds_fastapi_middleware.utils.dependency_injection import AppInjector
-from ds_fastapi_middleware.utils.authorization import Context
+from ds_fastapi.utils.dependency_injection import AppInjector
+from ds_fastapi.auth.auth import Context
 
 
 class ContextMiddleware(BaseHTTPMiddleware):

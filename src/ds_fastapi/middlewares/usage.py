@@ -4,17 +4,18 @@ Usage middleware for tracing service usage in fastApi applications.
 Usage metrics is collected and written to storage system for
 the purpose of billing customer.
 
-Example:
->>> from fastapi import FastAPI
->>> from ds_fastapi_middleware.middlewares import UsageMiddleware
+Example::
 
->>> app = FastAPI()
->>> app.add_middleware(
->>>     UsageMiddleware,
->>>     product_id="product_id",
->>>     memory_mb=1024,
->>>     queue_name="queue_name",
->>> )
+    from fastapi import FastAPI
+    from ds_fastapi.middlewares import UsageMiddleware
+
+    app = FastAPI()
+    app.add_middleware(
+        UsageMiddleware,
+        product_id="product_id",
+        memory_mb=1024,
+        queue_name="queue_name",
+    )
 """
 
 import datetime
@@ -24,8 +25,8 @@ from uuid import UUID
 from fastapi import FastAPI, Request
 from starlette.middleware.base import BaseHTTPMiddleware
 
-from ds_fastapi_middleware import models
-from ds_fastapi_middleware.utils.usage import write_usage
+from ds_fastapi.middlewares import models
+from ds_fastapi.utils.usage import write_usage
 
 
 class UsageMiddleware(BaseHTTPMiddleware):

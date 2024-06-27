@@ -14,11 +14,16 @@ be logged by the audit middleware.
 * When the action occurred
 * The result of the action
 
-Example:
->>> audit_logger = logging.getLogger("service-name-logger")
->>> audit_logger.addHandler(DynamoDbHandler(table_name="service-name-audit"))
->>> audit_logger.setLevel(logging.INFO)
->>> app.add_middleware(AuditMiddleware, logger=audit_logger, networks=[""])
+Example::
+
+    from ds_fastapi.middlewares import AuditMiddleware
+    from ds_fastapi.utils.log.audit import init
+    audit_logger = init("unittest-audit")
+    app.add_middleware(
+        AuditMiddleware,
+        logger=audit_logger,
+        networks=[""],
+    )
 
 
 @note
@@ -35,8 +40,8 @@ from fastapi import FastAPI
 import requests
 from starlette.middleware.base import BaseHTTPMiddleware
 
-from ds_fastapi_middleware.models import AuditPayload
-from ds_fastapi_middleware.utils import internal_traffic
+from ds_fastapi.middlewares.models import AuditPayload
+from ds_fastapi.utils import internal_traffic
 
 
 class AuditMiddleware(BaseHTTPMiddleware):
@@ -81,7 +86,7 @@ class AuditMiddleware(BaseHTTPMiddleware):
                 client_ip=ip,
                 status_code=response.status_code,
                 tenant_id=ctx.tenant_id,
-                user_id=ctx.user,
+                sub=ctx.sub,
                 created_at=datetime.datetime.fromtimestamp(start_time).isoformat(),
                 process_time=str(process_time),
             )
@@ -110,7 +115,7 @@ class AuditMiddleware(BaseHTTPMiddleware):
             return True
 
         context = request.state.context
-        if not context.tenant_id or not context.user:
+        if not context.tenant_id or not context.sub:
             return True
 
         ip = self._get_ip(request)

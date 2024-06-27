@@ -39,7 +39,7 @@ jobs:
     needs: build
     environment:
       name: pypi
-      url: https://pypi.org/p/ds-fastapi-middleware
+      url: https://pypi.org/p/ds-fastapi
     permissions:
       id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
     steps:

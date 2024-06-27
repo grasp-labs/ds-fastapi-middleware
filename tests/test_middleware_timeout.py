@@ -6,7 +6,7 @@ from httpx import AsyncClient
 from httpx import ASGITransport
 import pytest
 
-from ds_fastapi_middleware import TimeoutMiddleware
+from ds_fastapi.middlewares import TimeoutMiddleware
 
 
 app = FastAPI()
@@ -48,11 +48,8 @@ async def test_slow_endpoint_timeout():
         transport=transport,
         base_url="http://test",
     ) as client:
-        try:
-            await client.get("/slow")
-        except Exception as exc:
-            assert exc.__class__.__name__ == "WebAppException"
-            assert exc.status_code == 504
-            assert "Gateway timeout out at 1" in exc.detail
-            assert "Retry-After" in exc._header
-            assert "X-Response-Time" in exc._header
+        response = await client.get("/slow")
+        assert response.status_code == 504
+        assert "Gateway timeout at 1" in response.json()["message"]
+        assert "Retry-After" in response.headers
+        assert "X-Response-Time" in response.headers

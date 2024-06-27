@@ -50,7 +50,7 @@ class Logger:
     """
 
     logger_name = os.environ.get("DS_LOGGER_NAME", "ds-logger")
-    LOGGER = logging.getLogger()
+    LOGGER = logging.getLogger(logger_name)
     FORMATTER = logging.Formatter(
         "[%(asctime)s][%(levelname)s]%(prefix)s[%(module)s]: %(message)s",
         "%Y-%m-%d %H:%M:%S",

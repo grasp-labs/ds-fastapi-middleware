@@ -7,7 +7,7 @@ from typing import Dict
 import boto3
 from botocore.exceptions import ClientError
 
-from ds_fastapi_middleware.errors import Errors
+from ds_fastapi.errors import Errors
 
 
 class DynamoDbHandler(logging.StreamHandler):

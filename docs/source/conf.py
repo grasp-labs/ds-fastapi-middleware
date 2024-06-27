@@ -14,7 +14,7 @@ sys.path.insert(0, os.path.abspath("../../src"))
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = "ds-fastapi-middleware"
+project = "ds-fastapi"
 copyright = "2024, skerve yuan1979"
 author = "skerve yuan1979"
 version = open("../../VERSION.txt").read().strip()
@@ -33,5 +33,5 @@ exclude_patterns = []
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = "alabaster"
+html_theme = "sphinx_material"
 html_static_path = ["_static"]
